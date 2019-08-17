@@ -1,0 +1,40 @@
+# debug = true
+logLevel = "INFO"
+
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  compress = true
+  [entryPoints.https]
+  address = ":443"
+  compress = true
+    [entryPoints.https.tls]
+  [entryPoints.traefik]
+  address = ":9091"
+    [entryPoints.traefik.auth]
+      [entryPoints.traefik.auth.basic]
+      users = ["{{ traefik_api_user }}:{{ traefik_api_password }}"]
+
+[api]
+entryPoint = "traefik"
+dashboard = true
+
+[docker]
+watch = true
+endpoint = "unix:///var/run/docker.sock"
+exposedByDefault = false
+
+[acme]
+email = "{{ acme_email }}"
+storage = "/etc/traefik/acme.json"
+entryPoint = "https"
+acmeLogging = true
+  [acme.dnsChallenge]
+  provider = "{{ acme_provider }}"
+  delayBeforeCheck = 0
+
+[[acme.domains]]
+  main = "*.{{ acme_domain }}"
+  sans = ["{{ acme_domain }}"]
