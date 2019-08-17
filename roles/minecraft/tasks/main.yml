@@ -1,0 +1,74 @@
+---
+- name: Ensures minecraft dir exists
+  file:
+    path: "{{ root_dir }}/minecraft/data"
+    state: directory
+
+- name: Ensures minecraft backup dir exists
+  file:
+    path: "{{ root_dir }}/minecraft/backups"
+    state: directory
+
+- name: Adding server.properties file
+  template:
+    src: ../templates/server.properties
+    dest: "{{ root_dir }}/minecraft/server.properties"
+    mode: 0600
+
+- name: Adding whitelist.json file
+  template:
+    src: ../templates/whitelist.json
+    dest: "{{ root_dir }}/minecraft/whitelist.json"
+    mode: 0600
+
+- name: Adding ops.json file
+  template:
+    src: ../templates/ops.json
+    dest: "{{ root_dir }}/minecraft/ops.json"
+    mode: 0600
+
+- name: Adding journeymap config file
+  template:
+    src: ../templates/journeymap.server.global.config
+    dest: "{{ root_dir }}/minecraft/journeymap.server.global.config"
+    mode: 0600
+
+- name: Adding server icon file
+  template:
+    src: ../templates/server-icon.png
+    dest: "{{ root_dir }}/minecraft/server-icon.png"
+    mode: 0600
+
+- name: Add Dockerfile
+  template:
+    src: ../templates/Dockerfile
+    dest: "{{ root_dir }}/minecraft/Dockerfile"
+    mode: 0600
+
+- name: Create the minecraft image
+  docker_image:
+    name: minecraft
+    path: "{{ root_dir }}/minecraft"
+    state: present
+
+- name: Create the minecraft container
+  docker_container:
+    name: minecraft
+    image: minecraft:latest
+    restart_policy: unless-stopped
+    ports: 
+      - "25565:25565"
+    networks:
+      - name: web
+    volumes:
+      - "{{ root_dir }}/minecraft/data:/minecraft/world"
+      - "{{ root_dir }}/minecraft/backups:/minecraft/backups"
+      - "{{ root_dir }}/minecraft/server.properties:/minecraft/server.properties"
+      - "{{ root_dir }}/minecraft/whitelist.json:/minecraft/whitelist.json"
+      - "{{ root_dir }}/minecraft/ops.json:/minecraft/ops.json"
+      - "{{ root_dir }}/minecraft/journeymap.server.global.config:/minecraft/journeymap/server/5.5/journeymap.server.global.config"
+      - "{{ root_dir }}/minecraft/server-icon.png:/minecraft/server-icon.png"
+      - /var/run/docker.sock:/var/run/docker.sock
+    env:
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"
