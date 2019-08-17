@@ -1,0 +1,11 @@
+---
+- name: Create the Watchtower container
+  docker_container:
+    name: watchtower
+    image: v2tec/watchtower:0.3
+    restart_policy: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+    # Update containers every day at 5:00 a.m.
+    command: --schedule "0 0 5 * * *" --cleanup

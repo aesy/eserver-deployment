@@ -1,0 +1,9 @@
+daemon=3600
+timeout=10
+syslog=yes
+use=web, web=dynamicdns.park-your-domain.com/getip
+server=dynamicdns.park-your-domain.com
+protocol={{ acme_provider }}
+login={{ acme_domain }}
+password={{ ddclient_password }}
+@, *
