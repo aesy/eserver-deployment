@@ -1,0 +1,25 @@
+---
+- name: Ensures bitwarden dir exists
+  file:
+    path: "{{ root_dir }}/bitwarden/data"
+    state: directory
+
+- name: Create the bitwarden container
+  docker_container:
+    name: bitwarden
+    image: mprasil/bitwarden:1.8.0-alpine
+    restart_policy: unless-stopped
+    networks:
+      - name: web
+    volumes:
+      - "{{ root_dir }}/bitwarden/data:/data"
+    labels:
+      traefik.frontend.rule: "Host:pass.wertwein.com"
+      traefik.frontend.redirect.entryPoint: https
+      traefik.docker.network: "web"
+      traefik.port: "80"
+      traefik.enable: "true"
+    env:
+      SIGNUPS_ALLOWED: "false"
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

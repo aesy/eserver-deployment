@@ -1,0 +1,31 @@
+---
+- name: Ensures bookstack dir exists
+  file:
+    path: "{{ root_dir }}/bookstack/data"
+    state: directory
+
+- name: Create the bookstack container
+  docker_container:
+    name: bookstack
+    image: solidnerd/bookstack:0.24.1
+    restart_policy: unless-stopped
+    networks:
+      - name: web
+      - name: internal
+    volumes:
+      - "{{ root_dir }}/bookstack/data:/var/www/html"
+    links:
+      - mariadb
+    labels:
+      traefik.frontend.rule: "Host:wiki.wertwein.com"
+      traefik.frontend.redirect.entryPoint: https
+      traefik.docker.network: "web"
+      traefik.port: "80"
+      traefik.enable: "true"
+    env:
+      DB_HOST: "mariadb"
+      DB_DATABASE: "bookstack"
+      DB_USERNAME: "root"
+      DB_PASSWORD: "root"
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"
