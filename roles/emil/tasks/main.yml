@@ -34,6 +34,14 @@
     dest: "{{ root_dir }}/httpd/httpd-vhosts.conf"
     mode: 0600
 
+- name: Ensures blog dir exists
+  file:
+    path: "{{ root_dir }}/emil/blog"
+    owner: emil
+    group: sftp
+    mode: u=rwX,g=rX,o=rX
+    state: directory
+
 - name: Ensures portfolio dir exists
   file:
     path: "{{ root_dir }}/emil/emil"
@@ -60,15 +68,16 @@
     volumes:
       - "{{ root_dir }}/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf"
       - "{{ root_dir }}/httpd/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf"
+      - "{{ root_dir }}/emil/blog:/usr/local/apache2/htdocs/blog:ro"
       - "{{ root_dir }}/emil/emil:/usr/local/apache2/htdocs/emil:ro"
       - "{{ root_dir }}/emil/prometron:/usr/local/apache2/htdocs/prometron:ro"
     labels:
-      traefik.frontend.rule: "Host:emil.wertwein.com,prometron.wertwein.com"
+      traefik.frontend.rule: "Host:blog.emil.wertwein.com,emil.wertwein.com,prometron.wertwein.com"
       traefik.frontend.redirect.entryPoint: https
       traefik.docker.network: "web"
       traefik.port: "80"
       traefik.enable: "true"
     env:
-      VIRTUAL_HOST: "emil.wertwein.com,prometron.wertwein.com"
+      VIRTUAL_HOST: "blog.emil.wertwein.com,emil.wertwein.com,prometron.wertwein.com"
       NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
       NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

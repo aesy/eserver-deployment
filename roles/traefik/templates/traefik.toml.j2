@@ -37,4 +37,4 @@ acmeLogging = true
 
 [[acme.domains]]
   main = "*.{{ acme_domain }}"
-  sans = ["{{ acme_domain }}"]
+  sans = ["{{ acme_domain }}", "*.emil.{{ acme_domain }}"]
