@@ -2,7 +2,7 @@
 - name: Create the Watchtower container
   docker_container:
     name: watchtower
-    image: v2tec/watchtower:0.3
+    image: containrrr/watchtower:0.3.9
     restart_policy: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
