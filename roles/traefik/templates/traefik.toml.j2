@@ -35,6 +35,8 @@ acmeLogging = true
   provider = "{{ acme_provider }}"
   delayBeforeCheck = 0
 
+{% for domain in domains %}
 [[acme.domains]]
-  main = "*.{{ acme_domain }}"
-  sans = ["{{ acme_domain }}", "*.emil.{{ acme_domain }}"]
+  main = "*.{{ domain.name }}"
+  sans = ["{{ domain.name }}"]
+{% endfor %}

@@ -7,12 +7,13 @@
     emil_password: password
     traefik_api_user: username
     traefik_api_password: password
-    acme_domain: example.com
     acme_email: example@example.com
     acme_provider: namecheap # https://docs.traefik.io/configuration/acme/#provider
     namecheap_api_user: username
     namecheap_api_key: api_key
-    ddclient_password: password
+    domains:
+      - name: example.com
+        password: password
   roles:
     - ddclient
     - mariadb

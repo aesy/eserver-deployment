@@ -4,6 +4,11 @@ syslog=yes
 use=web, web=dynamicdns.park-your-domain.com/getip
 server=dynamicdns.park-your-domain.com
 protocol={{ acme_provider }}
-login={{ acme_domain }}
-password={{ ddclient_password }}
+
+{% for domain in domains %}
+    {% if 'password' in domain %}
+login={{ domain.name }}
+password={{ domain.password }}
 @, *
+    {% endif %}
+{% endfor %}
