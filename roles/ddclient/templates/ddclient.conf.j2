@@ -5,10 +5,10 @@ use=web, web=dynamicdns.park-your-domain.com/getip
 server=dynamicdns.park-your-domain.com
 protocol={{ acme_provider }}
 
-{%- for domain in domains -%}
-    {%- if 'password' in domain -%}
-        login={{ domain.name }}
-        password={{ domain.password }}
-        @, *
-    {%- endif -%}
-{%- endfor -%}
+{% for domain in domains %}
+{% if 'password' in domain %}
+login={{ domain.name }}
+password={{ domain.password }}
+@, *
+{% endif %}
+{% endfor %}
