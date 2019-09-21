@@ -1,0 +1,36 @@
+---
+- name: Ensures docker registry dir exists
+  file:
+    path: "{{ root_dir }}/registry/data"
+    state: directory
+
+- name: Adding htpasswd file
+  template:
+    src: ../templates/htpasswd.j2
+    dest: "{{ root_dir }}/registry/data/htpasswd"
+    mode: 0600
+
+- name: Create the docker registry container
+  docker_container:
+    name: registry
+    image: registry:2
+    restart_policy: always
+    networks:
+      - name: web
+    volumes:
+      - "{{ root_dir }}/registry/data:/data"
+      - "{{ root_dir }}/registry/data/htpasswd:/auth/htpasswd"
+    labels:
+      traefik.frontend.rule: "Host:registry.wertwein.com"
+      traefik.frontend.redirect.entryPoint: https
+      traefik.docker.network: "web"
+      traefik.port: "5000"
+      traefik.enable: "true"
+    env:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: "/data"
+      REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
+      REGISTRY_AUTH: "htpasswd"
+      REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+      REGISTRY_HTTP_SECRET: "secret" # TODO
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"
