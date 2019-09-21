@@ -14,8 +14,6 @@
       - name: internal
     volumes:
       - "{{ root_dir }}/bookstack/data:/var/www/html"
-    links:
-      - mariadb
     labels:
       traefik.frontend.rule: "Host:wiki.wertwein.com"
       traefik.frontend.redirect.entryPoint: https

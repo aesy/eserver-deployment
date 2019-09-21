@@ -48,8 +48,11 @@
 - name: Create the minecraft image
   docker_image:
     name: minecraft
-    path: "{{ root_dir }}/minecraft"
     state: present
+    source: build
+    build:
+      path: "{{ root_dir }}/minecraft"
+      pull: no
 
 - name: Create the minecraft container
   docker_container:

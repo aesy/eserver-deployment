@@ -1,0 +1,10 @@
+---
+- name: Ensure the internal network exists
+  docker_network:
+    name: internal
+    driver: bridge
+
+- name: Ensure the web network exists
+  docker_network:
+    name: web
+    driver: bridge

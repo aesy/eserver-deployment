@@ -14,8 +14,6 @@
       - name: internal
     volumes:
       - "{{ root_dir }}/nextcloud/data:/var/www/html"
-    links:
-      - mariadb
     labels:
       traefik.frontend.rule: "Host:cloud.wertwein.com"
       traefik.frontend.redirect.entryPoint: https

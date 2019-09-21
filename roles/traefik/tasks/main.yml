@@ -18,14 +18,6 @@
     dest: "{{ root_dir }}/traefik/traefik.toml"
     mode: 0600
 
-- name: Ensure the internal network exists
-  docker_network:
-    name: internal
-
-- name: Ensure the web network exists
-  docker_network:
-    name: web
-
 - name: Ensure traefik container is running
   docker_container:
     name: traefik
