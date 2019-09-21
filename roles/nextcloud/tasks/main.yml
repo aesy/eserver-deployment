@@ -1,0 +1,27 @@
+---
+- name: Ensures nextcloud dir exists
+  file:
+    path: "{{ root_dir }}/nextcloud/data"
+    state: directory
+
+- name: Create the nextcloud container
+  docker_container:
+    name: nextcloud
+    image: nextcloud:17-rc
+    restart_policy: always
+    networks:
+      - name: web
+      - name: internal
+    volumes:
+      - "{{ root_dir }}/nextcloud/data:/var/www/html"
+    links:
+      - mariadb
+    labels:
+      traefik.frontend.rule: "Host:cloud.wertwein.com"
+      traefik.frontend.redirect.entryPoint: https
+      traefik.docker.network: "web"
+      traefik.port: "80"
+      traefik.enable: "true"
+    env:
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

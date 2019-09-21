@@ -25,6 +25,7 @@
     - watchtower
     - portainer
     - bookstack
+    - nextcloud
     - bitwarden
     - emil
     - minecraft
