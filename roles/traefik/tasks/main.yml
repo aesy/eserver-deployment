@@ -36,7 +36,6 @@
     ports:
       - "80:80"
       - "443:443"
-      - "9091:9091"
     volumes:
       - "{{ root_dir }}/traefik/traefik.toml:/etc/traefik/traefik.toml"
       - "{{ root_dir }}/traefik/acme.json:/etc/traefik/acme.json"
