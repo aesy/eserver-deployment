@@ -1,0 +1,25 @@
+---
+- name: Ensures portainer dir exists
+  file:
+    path: "{{ root_dir }}/portainer/data"
+    state: directory
+
+- name: Create the portainer container
+  docker_container:
+    name: portainer
+    image: portainer/portainer:1.22.0
+    restart_policy: unless-stopped
+    networks:
+      - name: web
+    volumes:
+      - "{{ root_dir }}/portainer/data:/data"
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      traefik.frontend.rule: "Host:docker.wertwein.com"
+      traefik.frontend.redirect.entryPoint: https
+      traefik.docker.network: "web"
+      traefik.port: "9000"
+      traefik.enable: "true"
+    env:
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

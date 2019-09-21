@@ -23,6 +23,7 @@
     - postgres
     - registry
     - watchtower
+    - portainer
     - bookstack
     - bitwarden
     - emil
