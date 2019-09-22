@@ -25,6 +25,7 @@
     - registry
     - watchtower
     - portainer
+    - nexus
     - bookstack
     - nextcloud
     - bitwarden
