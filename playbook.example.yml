@@ -5,6 +5,7 @@
   vars:
     root_dir: '/opt'
     emil_password: password
+    password_salt: secret
     traefik_api_user: username
     traefik_api_password: password
     acme_email: example@example.com

@@ -15,7 +15,7 @@ defaultEntryPoints = ["http", "https"]
   address = ":9091"
     [entryPoints.traefik.auth]
       [entryPoints.traefik.auth.basic]
-      users = ["{{ traefik_api_user }}:{{ traefik_api_password | password_hash('sha512') }}"]
+      users = ["{{ traefik_api_user }}:{{ traefik_api_password | password_hash('sha512', password_salt) }}"]
 
 [api]
 entryPoint = "traefik"

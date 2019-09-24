@@ -11,7 +11,7 @@
 - name: Ensures emil user exists
   user:
     name: emil
-    password: "{{ emil_password | password_hash('sha512') }}"
+    password: "{{ emil_password | password_hash('sha512', password_salt) }}"
     create_home: no
     home: "{{ root_dir }}/emil"
     shell: "/sbin/nologin"
