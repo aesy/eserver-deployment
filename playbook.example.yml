@@ -1,13 +1,13 @@
 ---
 - name: Provisionning webservers group
   hosts: webservers
-  remote_user: root
   vars:
     root_dir: '/opt'
     emil_password: password
-    password_salt: secret
+    emil_password_salt: secret
     traefik_api_user: username
     traefik_api_password: password
+    traefik_api_password_salt: secret
     acme_email: example@example.com
     acme_provider: namecheap # https://docs.traefik.io/configuration/acme/#provider
     namecheap_api_user: username
@@ -15,6 +15,7 @@
     docker_registry:
       - name: username
         password: password
+        password_salt: secret
     domains:
       - name: example.com
         password: password
