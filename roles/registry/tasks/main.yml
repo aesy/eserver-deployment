@@ -18,7 +18,7 @@
     networks:
       - name: internal
     volumes:
-      - "{{ root_dir }}/registry/data:/data"
+      - "{{ root_dir }}/registry/data:/var/lib/registry"
       - "{{ root_dir }}/registry/data/htpasswd:/auth/htpasswd"
     env:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: "/data"

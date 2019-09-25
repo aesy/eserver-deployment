@@ -71,7 +71,7 @@
       - "{{ root_dir }}/minecraft/ops.json:/minecraft/ops.json"
       - "{{ root_dir }}/minecraft/journeymap.server.global.config:/minecraft/journeymap/server/5.5/journeymap.server.global.config"
       - "{{ root_dir }}/minecraft/server-icon.png:/minecraft/server-icon.png"
-      - /var/run/docker.sock:/var/run/docker.sock
+      - "/var/run/docker.sock:/var/run/docker.sock"
     env:
       NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
       NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

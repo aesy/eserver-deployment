@@ -31,7 +31,7 @@
     volumes:
       - "{{ root_dir }}/traefik/traefik.toml:/etc/traefik/traefik.toml"
       - "{{ root_dir }}/traefik/acme.json:/etc/traefik/acme.json"
-      - /var/run/docker.sock:/var/run/docker.sock
+      - "/var/run/docker.sock:/var/run/docker.sock"
     labels:
       traefik.frontend.rule: "Host:routes.wertwein.com"
       traefik.frontend.redirect.entryPoint: https

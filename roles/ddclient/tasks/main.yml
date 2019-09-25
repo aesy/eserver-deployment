@@ -16,5 +16,5 @@
     image: mace/ddclient
     restart_policy: always
     volumes:
-      - "{{ root_dir }}/ddclient/ddclient.conf:/config/ddclient.conf"
+      - "{{ root_dir }}/ddclient:/config"
       - /etc/localtime:/etc/localtime.:ro

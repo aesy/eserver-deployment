@@ -5,7 +5,7 @@
     image: containrrr/watchtower:0.3.9
     restart_policy: always
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/localtime:/etc/localtime:ro
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/etc/localtime:/etc/localtime:ro"
     # Update containers every day at 5:00 a.m.
     command: --schedule "0 0 5 * * *" --cleanup
