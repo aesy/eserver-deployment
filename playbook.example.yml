@@ -27,6 +27,7 @@
     - registry
     - watchtower
     - portainer
+    - omnidb
     - nexus
     - bookstack
     - nextcloud

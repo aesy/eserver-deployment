@@ -1,0 +1,35 @@
+---
+- name: Ensures omnidb dir exists
+  file:
+    path: "{{ root_dir }}/omnidb/data"
+    state: directory
+    mode: 0777
+
+- name: Copy omnidb configuration file
+  template:
+    src: omnidb.conf
+    dest: "{{ root_dir }}/omnidb/data/omnidb.conf"
+    mode: 0600
+
+- name: Create the omnidb container
+  docker_container:
+    name: omnidb
+    image: taivokasper/omnidb:v2.16.0-alpine_3.10
+    restart_policy: always
+    networks:
+      - name: web
+      - name: internal
+    volumes:
+      - "{{ root_dir }}/omnidb/data:/etc/omnidb"
+    labels:
+      traefik.ws.frontend.rule: "Host:db.wertwein.com; PathPrefix:/wss"
+      traefik.ws.frontend.redirect.entryPoint: https
+      traefik.ws.port: "25482"
+      traefik.web.frontend.rule: "Host:db.wertwein.com"
+      traefik.web.frontend.redirect.entryPoint: https
+      traefik.web.port: "8080"
+      traefik.docker.network: "web"
+      traefik.enable: "true"
+    env:
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"
