@@ -25,6 +25,7 @@
     restart_policy: always
     networks:
       - name: web
+      - name: internal
     ports:
       - "80:80"
       - "443:443"

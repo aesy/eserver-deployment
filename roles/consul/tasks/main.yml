@@ -1,0 +1,39 @@
+---
+- name: Ensures consul dir exists
+  file:
+    path: "{{ root_dir }}/consul/data"
+    state: directory
+
+- name: Create the consul container
+  docker_container:
+    name: consul-server
+    image: consul:1.6
+    command: agent -server -bootstrap -ui -client=0.0.0.0
+    restart_policy: always
+    purge_networks: yes
+    networks:
+      - name: web
+      - name: internal
+    volumes:
+      - "{{ root_dir }}/consul/data:/consul/data"
+    labels:
+      traefik.frontend.rule: "Host:cluster.wertwein.com"
+      traefik.frontend.redirect.entryPoint: https
+      traefik.frontend.auth.basic.users: "{{ traefik_api_user }}:{{ traefik_api_password | password_hash('bcrypt', traefik_api_password_salt) }}"
+      traefik.docker.network: "web"
+      traefik.port: "8500"
+      traefik.enable: "true"
+    env:
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"
+
+- name: Create the registrator container
+  docker_container:
+    name: registrator
+    image: gliderlabs/registrator:v7
+    command: -internal -resync=60 -tags="eserver" consul://consul-server:8500
+    restart_policy: always
+    networks:
+      - name: internal
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock"

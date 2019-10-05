@@ -26,6 +26,7 @@
     - postgres
     - registry
     - watchtower
+    - consul
     - portainer
     - omnidb
     - nexus
