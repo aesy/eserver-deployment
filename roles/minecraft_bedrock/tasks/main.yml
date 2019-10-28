@@ -1,0 +1,33 @@
+---
+- name: Ensures minecraft_bedrock dir exists
+  file:
+    path: "{{ root_dir }}/minecraft_bedrock/data"
+    state: directory
+
+- name: Adding server.properties file
+  template:
+    src: ../templates/server.properties
+    dest: "{{ root_dir }}/minecraft_bedrock/data/server.properties"
+    mode: 0600
+
+- name: Adding permissions.json file
+  template:
+    src: ../templates/permissions.json
+    dest: "{{ root_dir }}/minecraft_bedrock/data/permissions.json"
+    mode: 0600
+
+- name: Create the minecraft container
+  docker_container:
+    name: minecraft_bedrock
+    image: itzg/minecraft-bedrock-server:20190901
+    restart_policy: unless-stopped
+    ports: 
+      - "19132:19132/udp"
+    networks:
+      - name: web
+    volumes:
+      - "{{ root_dir }}/minecraft_bedrock/data:/data"
+    env:
+      EULA: "TRUE"
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"
