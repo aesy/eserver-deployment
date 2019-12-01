@@ -16,33 +16,6 @@
     dest: "{{ root_dir }}/minecraft_bedrock/data/permissions.json"
     mode: 0600
 
-- name: Add Dockerfile
-  template:
-    src: ../templates/Dockerfile
-    dest: "{{ root_dir }}/minecraft_bedrock/Dockerfile"
-    mode: 0600
-
-- name: Adding bedrock-entry.sh file
-  template:
-    src: ../templates/bedrock-entry.sh
-    dest: "{{ root_dir }}/minecraft_bedrock/bedrock-entry.sh"
-    mode: u=rwX,g=rX,o=rX
-
-- name: Adding property-definitions.json file
-  template:
-    src: ../templates/property-definitions.json
-    dest: "{{ root_dir }}/minecraft_bedrock/property-definitions.json"
-    mode: 0600
-
-- name: Create the minecraft_bedrock image
-  docker_image:
-    name: minecraft_bedrock
-    state: present
-    source: build
-    build:
-      path: "{{ root_dir }}/minecraft_bedrock"
-      pull: no
-
 - name: Create the minecraft container
   docker_container:
     name: minecraft_bedrock
