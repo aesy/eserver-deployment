@@ -10,6 +10,12 @@
     dest: "{{ root_dir }}/minecraft_bedrock/data/server.properties"
     mode: 0600
 
+- name: Adding whitelist.json file
+  template:
+    src: ../templates/whitelist.json
+    dest: "{{ root_dir }}/minecraft_bedrock/data/whitelist.json"
+    mode: 0600
+
 - name: Adding permissions.json file
   template:
     src: ../templates/permissions.json
