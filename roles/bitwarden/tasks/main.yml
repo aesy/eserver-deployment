@@ -13,6 +13,7 @@
       - name: web
     volumes:
       - "{{ root_dir }}/bitwarden/data:/data"
+      - "/etc/localtime:/etc/localtime:ro"
     labels:
       traefik.frontend.rule: "Host:pass.wertwein.com"
       traefik.frontend.redirect.entryPoint: https
