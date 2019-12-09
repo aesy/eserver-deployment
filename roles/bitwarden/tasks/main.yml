@@ -7,7 +7,7 @@
 - name: Create the bitwarden container
   docker_container:
     name: bitwarden
-    image: mprasil/bitwarden:1.8.0-alpine
+    image: mprasil/bitwarden:1.9.1-alpine
     restart_policy: unless-stopped
     networks:
       - name: web
