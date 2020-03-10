@@ -1,0 +1,79 @@
+---
+- name: Ensure sftp group exists
+  group:
+    name: sftp
+    state: present
+
+- name: Ensures birk user exists
+  user:
+    name: birk
+    password: "{{ birk_password | password_hash('sha512', birk_password_salt) }}"
+    create_home: no
+    home: "{{ root_dir }}/birk"
+    shell: "/sbin/nologin"
+    state: present
+
+- name: Ensures http dir exists
+  file:
+    path: "{{ root_dir }}/birk/httpd"
+    state: directory
+
+- name: Adding httpd.conf file
+  template:
+    src: ../templates/httpd.conf
+    dest: "{{ root_dir }}/birk/httpd/httpd.conf"
+    mode: 0600
+
+- name: Adding httpd-vhosts.conf file
+  template:
+    src: ../templates/httpd-vhosts.conf
+    dest: "{{ root_dir }}/birk/httpd/httpd-vhosts.conf"
+    mode: 0600
+
+- name: Ensures portfolio dir exists
+  file:
+    path: "{{ root_dir }}/birk/birk"
+    owner: birk
+    group: sftp
+    mode: u=rwX,g=rX,o=rX
+    state: directory
+
+- name: Ensures ultimategame dir exists
+  file:
+    path: "{{ root_dir }}/birk/ultimategame"
+    owner: birk
+    group: sftp
+    mode: u=rwX,g=rX,o=rX
+    state: directory
+
+- name: Ensures marsone dir exists
+  file:
+    path: "{{ root_dir }}/birk/marsone"
+    owner: birk
+    group: sftp
+    mode: u=rwX,g=rX,o=rX
+    state: directory
+
+- name: Create the httpd container
+  docker_container:
+    name: birk-httpd
+    image: httpd:2.4-alpine
+    restart_policy: unless-stopped
+    networks:
+      - name: web
+    volumes:
+      - "{{ root_dir }}/birk/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf"
+      - "{{ root_dir }}/birk/httpd/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf"
+      - "{{ root_dir }}/birk/birk:/usr/local/apache2/htdocs/birk:ro"
+      - "{{ root_dir }}/birk/ultimategame:/usr/local/apache2/htdocs/ultimategame:ro"
+      - "{{ root_dir }}/birk/marsone:/usr/local/apache2/htdocs/marsone:ro"
+    labels:
+      traefik.frontend.rule: "Host:birk.wertwein.com,ultimategame.wertwein.com,marsone.wertwein.com"
+      traefik.frontend.redirect.entryPoint: https
+      traefik.docker.network: "web"
+      traefik.port: "80"
+      traefik.enable: "true"
+    env:
+      VIRTUAL_HOST: "birk.wertwein.com,ultimategame.wertwein.com,marsone.wertwein.com"
+      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
+      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

@@ -5,6 +5,8 @@
     root_dir: '/opt'
     emil_password: password
     emil_password_salt: secret
+    birk_password: password
+    birk_password_salt: secret
     traefik_api_user: username
     traefik_api_password: password
     traefik_api_password_salt: secret
@@ -30,10 +32,12 @@
     - portainer
     - omnidb
     - nexus
+    - backup
     - bookstack
     - nextcloud
     - bitwarden
     - emil
+    - birk
     - minecraft
     - minecraft_bedrock
     - traefik
