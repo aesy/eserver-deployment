@@ -7,7 +7,7 @@
 - name: Ensures birk user exists
   user:
     name: birk
-    password: "{{ birk_password | password_hash('sha512', birk_password_salt) }}"
+    password: "{{ birk.password | password_hash('sha512', birk.salt) }}"
     create_home: no
     home: "{{ root_dir }}/birk"
     shell: "/sbin/nologin"
