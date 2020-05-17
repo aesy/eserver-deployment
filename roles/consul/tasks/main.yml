@@ -12,20 +12,17 @@
     restart_policy: always
     purge_networks: yes
     networks:
-      - name: web
-      - name: internal
+#      - name: web
+      - name: internal # required for registrator communication, but requires -bind arg
     volumes:
       - "{{ root_dir }}/consul/data:/consul/data"
     labels:
-      traefik.frontend.rule: "Host:cluster.wertwein.com"
-      traefik.frontend.redirect.entryPoint: https
-      traefik.frontend.auth.basic.users: "{{ traefik.user }}:{{ traefik.password | password_hash('bcrypt', traefik.salt) }}"
-      traefik.docker.network: "web"
-      traefik.port: "8500"
+      traefik.http.routers.consul.rule: "Host(`cluster.wertwein.com`)"
+      traefik.http.routers.consul.middlewares: auth
+      traefik.http.services.consul.loadbalancer.server.port: "8500"
+      traefik.http.middlewares.auth.basicAuth.users: "{{ traefik.user }}:{{ traefik.password | password_hash('bcrypt', traefik.salt) }}"
+      traefik.docker.network: "internal"
       traefik.enable: "true"
-    env:
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"
 
 - name: Create the registrator container
   docker_container:

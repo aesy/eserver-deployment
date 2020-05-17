@@ -35,5 +35,3 @@
       - "{{ root_dir }}/minecraft_bedrock/data:/data"
     env:
       EULA: "TRUE"
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

@@ -15,11 +15,6 @@
     volumes:
       - "{{ root_dir }}/nextcloud/data:/var/www/html"
     labels:
-      traefik.frontend.rule: "Host:cloud.wertwein.com"
-      traefik.frontend.redirect.entryPoint: https
-      traefik.docker.network: "web"
-      traefik.port: "80"
+      traefik.http.routers.nextcloud.rule: "Host(`cloud.wertwein.com`)"
+      traefik.http.services.nextcloud.loadbalancer.server.port: "80"
       traefik.enable: "true"
-    env:
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

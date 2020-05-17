@@ -81,12 +81,8 @@
       - "{{ root_dir }}/emil/prometron:/usr/local/apache2/htdocs/prometron:ro"
       - "{{ root_dir }}/emil/smasharenas:/usr/local/apache2/htdocs/smasharenas:ro"
     labels:
-      traefik.frontend.rule: "Host:blog.emil.wertwein.com,emil.wertwein.com,prometron.wertwein.com,smasharenas.com"
-      traefik.frontend.redirect.entryPoint: https
-      traefik.docker.network: "web"
-      traefik.port: "80"
+      traefik.http.routers.emil-httpd.rule: "Host(`emil.wertwein.com`, `blog.emil.wertwein.com`, `prometron.wertwein.com`, `smasharenas.com`)"
+      traefik.http.services.emil-httpd.loadbalancer.server.port: "80"
       traefik.enable: "true"
     env:
       VIRTUAL_HOST: "blog.emil.wertwein.com,emil.wertwein.com,prometron.wertwein.com,smasharenas.com"
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

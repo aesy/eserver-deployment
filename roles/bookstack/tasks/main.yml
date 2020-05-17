@@ -26,10 +26,8 @@
       - "{{ root_dir }}/bookstack/data/public:/var/www/bookstack/public/uploads"
       - "{{ root_dir }}/bookstack/data/storage:/var/www/bookstack/storage/uploads"
     labels:
-      traefik.frontend.rule: "Host:wiki.wertwein.com"
-      traefik.frontend.redirect.entryPoint: https
-      traefik.docker.network: "web"
-      traefik.port: "80"
+      traefik.http.routers.bookstack.rule: "Host(`wiki.wertwein.com`)"
+      traefik.http.services.bookstack.loadbalancer.server.port: "80"
       traefik.enable: "true"
     env:
       APP_URL: "https://wiki.wertwein.com"
@@ -37,5 +35,3 @@
       DB_DATABASE: "bookstack"
       DB_USERNAME: "{{ mariadb.user }}"
       DB_PASSWORD: "{{ mariadb.password }}"
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

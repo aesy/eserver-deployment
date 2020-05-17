@@ -17,6 +17,5 @@ $ `./deploy.sh`
 
 ## Todo
 
-* Migrate traefik 1.x -> 2.x
 * Set up host running processes such as docker, sshd, sftp, ntp
 * Automatic backups

@@ -68,12 +68,8 @@
       - "{{ root_dir }}/birk/ultimategame:/usr/local/apache2/htdocs/ultimategame:ro"
       - "{{ root_dir }}/birk/marsone:/usr/local/apache2/htdocs/marsone:ro"
     labels:
-      traefik.frontend.rule: "Host:birk.wertwein.com,ultimategame.wertwein.com,marsone.wertwein.com"
-      traefik.frontend.redirect.entryPoint: https
-      traefik.docker.network: "web"
-      traefik.port: "80"
+      traefik.http.routers.birk-httpd.rule: "Host(`birk.wertwein.com`, `ultimategame.wertwein.com`, `marsone.wertwein.com`)"
+      traefik.http.services.birk-httpd.loadbalancer.server.port: "80"
       traefik.enable: "true"
     env:
       VIRTUAL_HOST: "birk.wertwein.com,ultimategame.wertwein.com,marsone.wertwein.com"
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

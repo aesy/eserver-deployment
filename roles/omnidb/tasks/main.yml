@@ -22,14 +22,10 @@
     volumes:
       - "{{ root_dir }}/omnidb/data:/etc/omnidb"
     labels:
-      traefik.ws.frontend.rule: "Host:db.wertwein.com; PathPrefix:/wss"
-      traefik.ws.frontend.redirect.entryPoint: https
-      traefik.ws.port: "25482"
-      traefik.web.frontend.rule: "Host:db.wertwein.com"
-      traefik.web.frontend.redirect.entryPoint: https
-      traefik.web.port: "8080"
-      traefik.docker.network: "web"
+      traefik.http.routers.omnidb.rule: "Host(`db.wertwein.com`)"
+      traefik.http.routers.omnidb.service: "omnidb"
+      traefik.http.services.omnidb.loadbalancer.server.port: "8080"
+      traefik.http.routers.omnidb-websocket.rule: "Host(`db.wertwein.com`) && PathPrefix(`/wss`)"
+      traefik.http.routers.omnidb-websocket.service: "omnidb-websocket"
+      traefik.http.services.omnidb-websocket.loadbalancer.server.port: "25482"
       traefik.enable: "true"
-    env:
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

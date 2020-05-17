@@ -15,12 +15,8 @@
       - "{{ root_dir }}/bitwarden/data:/data"
       - "/etc/localtime:/etc/localtime:ro"
     labels:
-      traefik.frontend.rule: "Host:pass.wertwein.com"
-      traefik.frontend.redirect.entryPoint: https
-      traefik.docker.network: "web"
-      traefik.port: "80"
+      traefik.http.routers.bitwarden.rule: "Host(`pass.wertwein.com`)"
+      traefik.http.services.bitwarden.loadbalancer.server.port: "80"
       traefik.enable: "true"
     env:
       SIGNUPS_ALLOWED: "false"
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"

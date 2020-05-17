@@ -14,15 +14,16 @@
 
 - name: Copy traefik configuration file
   template:
-    src: traefik.toml.j2
-    dest: "{{ root_dir }}/traefik/traefik.toml"
+    src: traefik.yaml.j2
+    dest: "{{ root_dir }}/traefik/traefik.yaml"
     mode: 0600
 
 - name: Ensure traefik container is running
   docker_container:
     name: traefik
-    image: traefik:v1.7-alpine
+    image: traefik:v2.2.1
     restart_policy: always
+    restart: yes
     networks:
       - name: web
       - name: internal
@@ -30,14 +31,15 @@
       - "80:80"
       - "443:443"
     volumes:
-      - "{{ root_dir }}/traefik/traefik.toml:/etc/traefik/traefik.toml"
+      - "{{ root_dir }}/traefik/traefik.yaml:/etc/traefik/traefik.yaml"
       - "{{ root_dir }}/traefik/acme.json:/etc/traefik/acme.json"
       - "/var/run/docker.sock:/var/run/docker.sock"
     labels:
-      traefik.frontend.rule: "Host:routes.wertwein.com"
-      traefik.frontend.redirect.entryPoint: https
-      traefik.docker.network: "web"
-      traefik.port: "9091"
+      traefik.http.routers.traefik.rule: "Host(`routes.wertwein.com`)"
+      traefik.http.routers.traefik.service: "api@internal"
+      traefik.http.routers.traefik.middlewares: "auth"
+      traefik.http.services.traefik.loadbalancer.server.port: "8080"
+      traefik.http.middlewares.auth.basicauth.users: "{{ traefik.user }}:{{ traefik.password | password_hash('bcrypt', traefik.salt) }}"
       traefik.enable: "true"
     env:
       NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
