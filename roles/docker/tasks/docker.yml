@@ -1,0 +1,49 @@
+---
+- name: Ensure Python is installed
+  package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+  - python3
+
+- name: Install required Python libraries
+  pip:
+    name: docker
+
+- name: Add Docker repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docer-ce.repo
+    validate_certs: false
+
+- name: Install Docker
+  package:
+    name: docker-ce
+    state: latest
+
+- name: Ensure docker dir exists
+  file:
+    path: "/etc/docker"
+    state: directory
+
+- name: Configure Docker daemon
+  template:
+    src: daemon.json.j2
+    dest: "/etc/docker/daemon.json"
+  notify: restart docker
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Ensure the internal network exists
+  docker_network:
+    name: internal
+    driver: bridge
+
+- name: Ensure the web network exists
+  docker_network:
+    name: web
+    driver: bridge

@@ -1,0 +1,16 @@
+---
+- name: Provisioning eserver
+  hosts:
+  - eserver
+  become: yes
+  roles:
+  - host
+  - docker
+  - ddns
+  - webserver
+  - database
+  - wiki
+  - password-manager
+  - portainer
+  - minecraft
+  - reverse-proxy

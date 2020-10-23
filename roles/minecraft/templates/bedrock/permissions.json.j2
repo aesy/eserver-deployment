@@ -1,0 +1,10 @@
+[
+    {% for name, data in minecraft.bedrock.players.items() %}
+    {% if 'permission' in data %}
+    {% if not loop.first %},{% endif %} {
+        "permission": "{{ data.permission }}",
+        "xuid": "{{ data.id }}"
+    }
+    {% endif %}
+    {% endfor %}
+]

@@ -1,0 +1,19 @@
+---
+minecraft:
+  bedrock:
+    enabled: no
+    root_dir: /opt/minecraft/bedrock
+    allow_cheats: true
+    difficulty: hard
+    game_mode: survival
+    max_players: 10
+    max_threads: 8
+    pvp: false
+    server_name: minecraft
+    tick_distance: 6
+    view_distance: 32
+    players: { }
+  ftb:
+    enabled: no
+    root_dir: /opt/minecraft/ftb
+    players: { }

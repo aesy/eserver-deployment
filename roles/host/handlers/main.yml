@@ -1,0 +1,22 @@
+---
+- name: restart server
+  reboot:
+    reboot_timeout: 300
+
+- name: restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+- name: restart firewalld
+  systemd:
+    name: firewalld
+    state: restarted
+    daemon_reload: true
+
+- name: cleanup authorized_keys
+  file:
+    state: absent
+    path: "/home/{{ item.username }}/.ssh/authorized_keys"
+  with_items:
+  - "{{ ssh_users }}"

@@ -1,0 +1,44 @@
+entryPoints:
+  web:
+    address: :80
+    http:
+      redirections:
+        entrypoint:
+          to: web-secure
+          scheme: https
+          permanent: true
+  web-secure:
+    address: :443
+    http:
+      tls:
+        certResolver: letsEncrypt
+
+api:
+  dashboard: true
+
+providers:
+  docker:
+    network: web
+    exposedByDefault: false
+
+{% if acme_email %}
+certificatesResolvers:
+  letsEncrypt:
+    acme:
+      email: "{{ acme_email }}"
+      storage: /etc/traefik/acme.json
+      dnsChallenge:
+        provider: "{{ acme_provider }}"
+        delayBeforeCheck: 0
+{% endif %}
+
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+log:
+  filePath: /var/log/traefik/traefik.log
+  level: INFO
+
+accessLog:
+  filePath: /var/log/traefik/access.log

@@ -1,0 +1,73 @@
+---
+- name: Ensures minecraft dir exists
+  file:
+    path: "{{ minecraft.ftb.root_dir }}/data"
+    state: directory
+
+- name: Ensures minecraft backup dir exists
+  file:
+    path: "{{ minecraft.ftb.root_dir }}/backups"
+    state: directory
+
+- name: Adding server.properties file
+  template:
+    src: ftb/server.properties.j2
+    dest: "{{ minecraft.ftb.root_dir }}/server.properties"
+    mode: 0600
+
+- name: Adding whitelist.json file
+  template:
+    src: ftb/whitelist.json.j2
+    dest: "{{ minecraft.ftb.root_dir }}/whitelist.json"
+    mode: 0600
+
+- name: Adding ops.json file
+  template:
+    src: ftb/ops.json.j2
+    dest: "{{ minecraft.ftb.root_dir }}/ops.json"
+    mode: 0600
+
+- name: Adding journeymap config file
+  copy:
+    src: ftb/journeymap.server.global.config
+    dest: "{{ minecraft.ftb.root_dir }}/journeymap.server.global.config"
+    mode: 0600
+
+- name: Adding server icon file
+  copy:
+    src: ftb/server-icon.png
+    dest: "{{ minecraft.ftb.root_dir }}/server-icon.png"
+    mode: 0600
+
+- name: Add Dockerfile
+  copy:
+    src: ftb/Dockerfile
+    dest: "{{ minecraft.ftb.root_dir }}/Dockerfile"
+    mode: 0600
+
+- name: Create the minecraft image
+  docker_image:
+    name: minecraft_ftb
+    state: present
+    source: build
+    build:
+      path: "{{ minecraft.ftb.root_dir }}"
+      pull: no
+
+- name: Create the minecraft container
+  docker_container:
+    name: minecraft_ftb
+    image: minecraft_ftb:latest
+    restart_policy: unless-stopped
+    ports:
+    - "25565:25565"
+    networks:
+    - name: web
+    volumes:
+    - "{{ minecraft.ftb.root_dir }}/data:/minecraft/world"
+    - "{{ minecraft.ftb.root_dir }}/backups:/minecraft/backups"
+    - "{{ minecraft.ftb.root_dir }}/server.properties:/minecraft/server.properties"
+    - "{{ minecraft.ftb.root_dir }}/whitelist.json:/minecraft/whitelist.json"
+    - "{{ minecraft.ftb.root_dir }}/ops.json:/minecraft/ops.json"
+    - "{{ minecraft.ftb.root_dir }}/journeymap.server.global.config:/minecraft/journeymap/server/5.5/journeymap.server.global.config"
+    - "{{ minecraft.ftb.root_dir }}/server-icon.png:/minecraft/server-icon.png"

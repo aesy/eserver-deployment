@@ -1,0 +1,11 @@
+[
+    {% for name, data in minecraft.ftb.players.items() %}
+    {% if 'level' in data %}
+    {
+          "name": "{{ name }}",
+          "uuid": "{{ data.id }}",
+          "level": {{ data.level }}
+    }{% if not loop.last %},{% endif %}
+    {% endif %}
+    {% endfor %}
+]

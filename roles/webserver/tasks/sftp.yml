@@ -1,0 +1,14 @@
+---
+- name: Ensures sftp group exists
+  group:
+    name: sftp
+    state: present
+
+- name: Ensures sftp users exists
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | password_hash('sha512', item.salt) }}"
+    create_home: no
+    shell: /sbin/nologin
+    state: present
+  with_items: "{{ sftp.users }}"

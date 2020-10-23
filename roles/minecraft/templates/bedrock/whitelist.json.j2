@@ -1,0 +1,8 @@
+[
+    {% for name, data in minecraft.bedrock.players.items() %}
+    {
+        "name": "{{ name }}",
+        "xuid": "{{ data.id }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+]

@@ -1,0 +1,22 @@
+---
+- name: Ensures bitwarden dir exists
+  file:
+    path: "{{ root_dir }}/bitwarden/data"
+    state: directory
+
+- name: Create the bitwarden container
+  docker_container:
+    name: bitwarden
+    image: bitwardenrs/server:1.17.0-alpine
+    restart_policy: unless-stopped
+    networks:
+      - name: web
+    volumes:
+      - "{{ root_dir }}/bitwarden/data:/data"
+      - "/etc/localtime:/etc/localtime:ro"
+    labels:
+      traefik.http.routers.bitwarden.rule: "Host(`pass.wertwein.com`)"
+      traefik.http.services.bitwarden.loadbalancer.server.port: "80"
+      traefik.enable: "true"
+    env:
+      SIGNUPS_ALLOWED: "false"

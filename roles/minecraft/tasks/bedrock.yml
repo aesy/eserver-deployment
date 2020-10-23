@@ -1,0 +1,37 @@
+---
+- name: Ensures minecraft_bedrock dir exists
+  file:
+    path: "{{ minecraft.bedrock.root_dir }}/data"
+    state: directory
+
+- name: Adding server.properties file
+  template:
+    src: bedrock/server.properties.j2
+    dest: "{{ minecraft.bedrock.root_dir }}/data/server.properties"
+    mode: 0600
+
+- name: Adding whitelist.json file
+  template:
+    src: bedrock/whitelist.json.j2
+    dest: "{{ minecraft.bedrock.root_dir }}/data/whitelist.json"
+    mode: 0600
+
+- name: Adding permissions.json file
+  template:
+    src: bedrock/permissions.json.j2
+    dest: "{{ minecraft.bedrock.root_dir }}/data/permissions.json"
+    mode: 0600
+
+- name: Create the minecraft container
+  docker_container:
+    name: minecraft_bedrock
+    image: minecraft_bedrock:latest
+    restart_policy: unless-stopped
+    ports:
+    - "19132:19132/udp"
+    networks:
+    - name: web
+    volumes:
+    - "{{ minecraft.bedrock.root_dir }}/data:/data"
+    env:
+      EULA: "TRUE"

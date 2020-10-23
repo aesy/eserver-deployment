@@ -1,0 +1,8 @@
+[
+    {% for name, data in minecraft.ftb.players.items() %}
+    {
+        "uuid": "{{ data.id }}",
+        "name": "{{ name }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+]

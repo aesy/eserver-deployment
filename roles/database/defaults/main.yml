@@ -1,0 +1,10 @@
+---
+mariadb:
+  user: ""
+  password: ""
+  port: "3306"
+
+postgres:
+  user: ""
+  password: ""
+  port: "5432"

@@ -1,6 +1,9 @@
 .idea
 *.iml
 
-hosts
-playbook.*
-!playbook.example.yml
+*.out
+*.tfstate
+.terraform
+.vagrant
+
+.vault_password

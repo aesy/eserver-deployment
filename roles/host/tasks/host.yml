@@ -1,0 +1,19 @@
+---
+- name: Configure hostname
+  copy:
+    content: "eServer"
+    dest: /etc/hostname
+
+# https://serversforhackers.com/c/customize-your-login-screen-via-linuxs-message-of-the-day-ubuntucentos
+- name: Configure MOTD
+  template:
+    src: login-info.sh.j2
+    dest: /etc/profile.d/login-info.sh
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+  notify: restart server

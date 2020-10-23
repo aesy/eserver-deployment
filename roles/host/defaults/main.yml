@@ -1,0 +1,8 @@
+hostname: eserver
+
+docker:
+  root_dir: "/etc/docker"
+
+ssh_users: []
+
+sftp_users: []

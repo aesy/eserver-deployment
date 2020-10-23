@@ -1,0 +1,12 @@
+---
+acme_email: ""
+acme_provider: ""
+
+namecheap:
+  api_user: ""
+  api_key: ""
+
+traefik:
+  user: ""
+  password: ""
+  salt: ""

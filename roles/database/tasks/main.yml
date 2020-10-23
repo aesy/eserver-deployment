@@ -1,0 +1,7 @@
+---
+- include_tasks: mariadb.yml
+  when: "mariadb.user is defined"
+- include_tasks: postgres.yml
+  when: "postgres.user is defined"
+- include_tasks: omnidb.yml
+  when: "mariadb.user is defined or postgres.user is defined"

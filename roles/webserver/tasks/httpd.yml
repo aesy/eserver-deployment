@@ -1,0 +1,42 @@
+---
+- name: Ensures http dir exists
+  file:
+    path: "{{ webserver.root_dir }}"
+    state: directory
+
+- name: Adding httpd.conf file
+  copy:
+    src: httpd.conf
+    dest: "{{ webserver.root_dir }}/httpd.conf"
+    mode: 0600
+
+- name: Adding httpd-vhosts.conf file
+  template:
+    src: httpd-vhosts.conf.j2
+    dest: "{{ webserver.root_dir }}/httpd-vhosts.conf"
+    mode: 0600
+
+- name: Ensures site dirs exists
+  file:
+    path: "{{ webserver.root_dir }}/{{ item.owner }}/{{ item.url }}"
+    owner: "{{ item.owner }}"
+    group: sftp
+    mode: u=rwX,g=rX,o=rX
+    state: directory
+  with_items: "{{ webserver.sites }}"
+
+- name: Create the httpd container
+  docker_container:
+    name: httpd
+    image: httpd:2.4-alpine
+    restart_policy: unless-stopped
+    networks:
+    - name: web
+    volumes: "{{ lookup('template', 'volumes.yml.j2') | from_yaml }}"
+    labels:
+      traefik.http.routers.httpd.rule: "{% for site in webserver.sites %}Host(`{{ site.url }}`){% if not loop.last %} || {% endif %}{% endfor %}"
+      traefik.http.services.httpd.loadbalancer.server.port: "80"
+      traefik.docker.network: "web"
+      traefik.enable: "true"
+    env:
+      VIRTUAL_HOST: "{{ webserver.sites | map(attribute='url') | join(',') }}"
