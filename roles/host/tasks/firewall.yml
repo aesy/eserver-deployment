@@ -7,18 +7,15 @@
 
 - name: Open firewall ports
   firewalld:
-    service: "{{ item }}"
+    port: "{{ item.port }}/{{ item.protocol }}"
     zone: public
     immediate: yes
     permanent: yes
     state: enabled
-  with_items:
-  - http
-  - https
-  - ssh
+  with_items: "{{ firewall.allowed }}"
 
 - name: Allow masquerading
-  ansible.posix.firewalld:
+  firewalld:
     zone: public
     masquerade: "yes"
     immediate: yes

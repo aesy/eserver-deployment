@@ -3,6 +3,13 @@ hostname: eserver
 docker:
   root_dir: "/etc/docker"
 
+ssh_port: 22
+
 ssh_users: []
 
 sftp_users: []
+
+firewall:
+  allowed:
+  - port: "{{ ssh_port }}"
+    protocol: tcp
