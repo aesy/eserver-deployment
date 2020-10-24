@@ -14,7 +14,7 @@
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/docer-ce.repo
-    validate_certs: false
+    checksum: sha256:8ab5599eef0afcac10cbd3e8670873efee20fcceb5fb3526a62edeade603cec7
 
 - name: Install Docker
   package:
