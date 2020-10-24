@@ -2,7 +2,7 @@
 
 # Basic info
 HOSTNAME=`uname -n`
-ROOT_DISK=`df -Ph / | awk '{print $4}' | tr -d '\n'`
+ROOT_DISK=`df -Ph / | tail -n 1 | awk '{print $4}' | tr -d '\n'`
 
 # System load
 MEMORY1=`free -t -m | grep Total | awk '{print $3" MB";}'`
