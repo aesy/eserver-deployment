@@ -1,10 +1,10 @@
 ---
-- name: Ensure traefik dir exists
+- name: Ensures traefik dir exists
   file:
     path: "{{ root_dir }}/traefik"
     state: directory
 
-- name: Ensure acme.json file exists
+- name: Ensures acme.json file exists
   file:
     path: "{{ root_dir }}/traefik/acme.json"
     state: touch
@@ -18,12 +18,12 @@
     dest: "{{ root_dir }}/traefik/traefik.yaml"
     mode: 0600
 
-- name: Ensure traefik container is running
+- name: Ensures traefik container is running
   docker_container:
     name: traefik
     image: traefik:v2.2.1
     restart_policy: always
-    restart: true
+    restart: true # TODO notify restart on container changes instead
     networks:
       - name: web
       - name: internal

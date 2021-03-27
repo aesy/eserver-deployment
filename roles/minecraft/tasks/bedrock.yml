@@ -25,7 +25,7 @@
 - name: Create the minecraft container
   docker_container:
     name: minecraft_bedrock
-    image: minecraft_bedrock:latest
+    image: itzg/minecraft-bedrock-server:2022.1.0
     restart_policy: unless-stopped
     ports:
       - "19132:19132/udp"

@@ -30,6 +30,6 @@ minecraft:
     enabled: true
     server_name: Ye boiii
     players: "{{ vault_minecraft_bedrock_players }}"
-  ftb:
-    enabled: true
-    players: "{{ vault_minecraft_ftb_players }}"
+#  ftb:
+#    enabled: true
+#    players: "{{ vault_minecraft_ftb_players }}"

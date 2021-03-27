@@ -1,19 +1,19 @@
 ---
 - name: Ensures http dir exists
   file:
-    path: "{{ webserver.root_dir }}"
+    path: "{{ root_dir }}/httpd"
     state: directory
 
 - name: Adding httpd.conf file
   copy:
     src: httpd.conf
-    dest: "{{ webserver.root_dir }}/httpd.conf"
+    dest: "{{ root_dir }}/httpd/httpd.conf"
     mode: 0600
 
 - name: Adding httpd-vhosts.conf file
   template:
     src: httpd-vhosts.conf.j2
-    dest: "{{ webserver.root_dir }}/httpd-vhosts.conf"
+    dest: "{{ root_dir }}/httpd/httpd-vhosts.conf"
     mode: 0600
 
 - name: Ensures site dirs exists

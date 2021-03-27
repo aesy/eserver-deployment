@@ -1,3 +1,4 @@
 ---
 docker_auth: []
 docker_registry_users: []
+docker_data_root: "{{ root_dir }}/docker"

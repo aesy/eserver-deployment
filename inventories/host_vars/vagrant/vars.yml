@@ -1,0 +1,37 @@
+---
+ssh_port: 22
+
+ssh_users:
+- username: test
+  password: test
+  salt: abcdefghijklmnopqrstuv
+  shell: /bin/bash
+  groups:
+  - sudo
+  - docker
+  home: /home/test/
+  key: keys/easy.pub
+
+sftp_users:
+- name: sftp
+  password: sftp
+  salt: abcdefghijklmnop
+  chroot_dir: "{{ root_dir }}/chroot/test"
+
+postgres_enabled: true
+postgres_user: "postgres"
+postgres_password: "postgres"
+
+mariadb_enabled: true
+mariadb_user: "root"
+mariadb_password: "root"
+
+httpd_sites:
+- owner: test
+  url: example.com
+
+minecraft:
+  bedrock:
+    enabled: true
+    server_name: Test
+    players: {}

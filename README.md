@@ -9,7 +9,10 @@ This repository contains deployment scripts for my multi-purpose home server cal
 
 ## Prerequisites
 
+* [Python 3](https://www.python.org/)
 * [Pipenv](https://pipenv.pypa.io/en/latest/)
+* [Vagrant 2](https://www.vagrantup.com/) (optional, for testing)
+* [VirtualBox 6](https://www.virtualbox.org/) (optional, for testing)
 
 ## Usage
 
@@ -55,4 +58,13 @@ $ ansible-vault edit inventories/<...>/secrets.yml
 
 ```shell
 $ ansible-lint playbooks
+$ vagrant validate
+```
+
+### Test run in a virtual machine
+
+```shell
+$ vagrant up --provision
+$ vagrant ssh # verify
+$ vagrant destroy
 ```

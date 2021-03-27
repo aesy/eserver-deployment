@@ -33,5 +33,6 @@ jobs:
       run: |
         echo "$VAULT_PASSWORD" > .vault_password
         pipenv run ansible-lint playbooks
+
       env:
         VAULT_PASSWORD: ${{ secrets.VAULT_PASSWORD }}

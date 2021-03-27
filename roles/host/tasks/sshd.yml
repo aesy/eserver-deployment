@@ -17,14 +17,16 @@
     line: "{{ item.username }} ALL=(ALL) NOPASSWD: ALL"
     create: true
     state: present
-    validate: "visudo -cf {{ item.username }}"
+    validate: "visudo -cf %s"
   with_items: "{{ ssh_users }}"
+  no_log: true
 
 - name: Set up users authorized_keys
   authorized_key:
     user: "{{ item.username }}"
     key: "{{ lookup('file', '{{ item.key }}') }}"
   with_items: "{{ ssh_users }}"
+  no_log: true
 
 - name: Harden SSH configuration
   template:

@@ -1,14 +1,12 @@
 ---
-- name: Ensure common packages are installed
+- name: Ensures common packages are installed
   package:
     name: "{{ item }}"
     state: latest
   loop:
-    - epel-release
-    - yum-utils
-    - sudo
-    - curl
-    - git
-    - htop
-    - nano
-    - libseccomp
+  - sudo
+  - gnupg
+  - curl
+  - git
+  - htop
+  - nano
