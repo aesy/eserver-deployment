@@ -1,0 +1,9 @@
+---
+docker:
+  root_dir: "/etc/docker"
+
+docker_registry:
+  users: []
+
+watchtower:
+  auth: {}

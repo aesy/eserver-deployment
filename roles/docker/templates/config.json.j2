@@ -1,0 +1,10 @@
+{
+  "auths": {
+    {% for domain, data in watchtower.auth.items() %}
+    {% if not loop.first %},{% endif %}
+    "{{ domain }}": {
+      "auth": "{{ (data.username + ':' + data.password) | b64encode }}"
+    }
+    {% endfor %}
+  }
+}
