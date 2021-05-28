@@ -1,0 +1,37 @@
+---
+ssh_users: "{{ vault_ssh_users }}"
+sftp_users: "{{ vault_sftp_users }}"
+
+traefik:
+  user: "{{ vault_traefik_username }}"
+  password: "{{ vault_traefik_password }}"
+  salt: "{{ vault_traefik_salt }}"
+
+acme_email: "{{ vault_acme_email }}"
+acme_provider: namecheap
+
+namecheap_api_user: "{{ vault_namecheap_username }}"
+namecheap_api_key: "{{ vault_namecheap_key }}"
+
+postgres:
+  user: "{{ vault_postgres_username }}"
+  password: "{{ vault_postgres_password }}"
+
+mariadb:
+  user: "{{ vault_mariadb_username }}"
+  password: "{{ vault_mariadb_password }}"
+
+domains: "{{ vault_domains }}"
+
+webserver:
+  root_dir: "{{ root_dir }}/httpd"
+  sites: "{{ vault_webserver_sites }}"
+
+minecraft:
+  bedrock:
+    enabled: true
+    server_name: Ye boiii
+    players: "{{ vault_minecraft_bedrock_players }}"
+  ftb:
+    enabled: true
+    players: "{{ vault_minecraft_ftb_players }}"
