@@ -2,7 +2,7 @@
 - name: Add user
   user:
     name: "{{ item.username }}"
-    password: "{{ item.password }}"
+    password: "{{ item.password | password_hash('bcrypt', item.salt) }}"
     shell: "{{ item.shell }}"
     groups: "{{ item.groups }}"
     create_home: "{{ item.home | bool }}"
@@ -17,6 +17,7 @@
     line: "{{ item.username }} ALL=(ALL) NOPASSWD: ALL"
     create: true
     state: present
+    validate: "visudo -cf {{ item.username }}"
   with_items: "{{ ssh_users }}"
 
 - name: Set up users authorized_keys

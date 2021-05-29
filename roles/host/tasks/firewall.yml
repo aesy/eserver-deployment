@@ -12,7 +12,7 @@
     immediate: true
     permanent: true
     state: enabled
-  with_items: "{{ firewall.allowed }}"
+  with_items: "{{ firewall_allowed }}"
 
 - name: Allow masquerading
   firewalld:

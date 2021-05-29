@@ -1,6 +1,6 @@
-- "{{ webserver.root_dir }}/httpd.conf:/usr/local/apache2/conf/httpd.conf"
-- "{{ webserver.root_dir }}/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf"
+- "{{ root_dir }}/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf"
+- "{{ root_dir }}/httpd/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf"
 
-{% for site in webserver.sites %}
-- "{{ webserver.root_dir }}/{{ site.owner }}/{{ site.url }}:/usr/local/apache2/htdocs/{{ site.url }}"
+{% for site in httpd_sites %}
+- "{{ root_dir }}/httpd/{{ site.owner }}/{{ site.url }}:/usr/local/apache2/htdocs/{{ site.url }}"
 {% endfor %}

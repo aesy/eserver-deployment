@@ -14,6 +14,6 @@
     volumes:
       - "{{ root_dir }}/postgres/data:/var/lib/postgresql/data"
     env:
-      POSTGRES_USER: "{{ postgres.user }}"
-      POSTGRES_PASSWORD: "{{ postgres.password }}"
-      POSTGRES_PORT: "{{ postgres.port }}"
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_PORT: "{{ postgres_port }}"

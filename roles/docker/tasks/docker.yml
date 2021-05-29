@@ -32,6 +32,13 @@
     dest: "/etc/docker/daemon.json"
   notify: restart docker
 
+- name: Log into registries
+  docker_login:
+    registry: "{{ item.registry }}"
+    username: "{{ item.username }}"
+    password: "{{ item.password }}"
+  loop: "{{ docker_auth }}"
+
 - name: Start Docker service
   service:
     name: docker

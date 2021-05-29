@@ -1,4 +1,4 @@
-{% for site in webserver.sites %}
+{% for site in httpd_sites %}
 <VirtualHost *:80>
     DocumentRoot /usr/local/apache2/htdocs/{{ site.url }}
     ServerName {{ site.url }}

@@ -1,10 +1,10 @@
 ---
-mariadb:
-  user: ""
-  password: ""
-  port: "3306"
+mariadb_enabled: false
+mariadb_user: "root"
+mariadb_password: "root"
+mariadb_port: "3306"
 
-postgres:
-  user: ""
-  password: ""
-  port: "5432"
+postgres_enabled: false
+postgres_user: "postgres"
+postgres_password: "postgres"
+postgres_port: "5432"

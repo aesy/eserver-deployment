@@ -3,8 +3,7 @@ root_dir: "{{ vault_root_dir }}"
 
 ssh_port: "{{ vault_ssh_port }}"
 
-firewall:
-  allowed:
+firewall_allowed:
   - port: 80
     protocol: tcp
   - port: 443
@@ -12,14 +11,7 @@ firewall:
   - port: "{{ ssh_port }}"
     protocol: tcp
 
-docker:
-  root_dir: "{{ root_dir }}/docker"
-  ghcr:
+docker_auth:
+  - registry: ghcr.io
     username: "{{ vault_ghcr_username }}"
     password: "{{ vault_ghcr_password }}"
-
-watchtower:
-  auth:
-    ghcr.io:
-      username: "{{ docker.ghcr.username }}"
-      password: "{{ docker.ghcr.password }}"

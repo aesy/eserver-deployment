@@ -1,7 +1,3 @@
 ---
-webserver:
-  root_dir: /opt/httpd
-  sites: []
-
-sftp:
-  users: []
+httpd_sites: []
+sftp_users: []

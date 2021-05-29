@@ -18,4 +18,13 @@ AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
 AcceptEnv XMODIFIERS
 
 # override default of no subsystems
-Subsystem	sftp	/usr/lib/ssh/sftp-server
+Subsystem	sftp	internal-sftp
+
+{% for user in sftp_users %}
+Match User {{ user.name }}
+    ChrootDirectory {{ user.chroot_dir }}
+    PasswordAuthentication yes
+    X11Forwarding no
+    AllowTcpForwarding no
+    ForceCommand internal-sftp -u 002
+{% endfor %}

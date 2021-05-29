@@ -2,10 +2,9 @@
 ssh_users: "{{ vault_ssh_users }}"
 sftp_users: "{{ vault_sftp_users }}"
 
-traefik:
-  user: "{{ vault_traefik_username }}"
-  password: "{{ vault_traefik_password }}"
-  salt: "{{ vault_traefik_salt }}"
+traefik_user: "{{ vault_traefik_username }}"
+traefik_password: "{{ vault_traefik_password }}"
+traefik_salt: "{{ vault_traefik_salt }}"
 
 acme_email: "{{ vault_acme_email }}"
 acme_provider: namecheap
@@ -13,19 +12,18 @@ acme_provider: namecheap
 namecheap_api_user: "{{ vault_namecheap_username }}"
 namecheap_api_key: "{{ vault_namecheap_key }}"
 
-postgres:
-  user: "{{ vault_postgres_username }}"
-  password: "{{ vault_postgres_password }}"
+postgres_enabled: true
+postgres_user: "{{ vault_postgres_username }}"
+postgres_password: "{{ vault_postgres_password }}"
 
-mariadb:
-  user: "{{ vault_mariadb_username }}"
-  password: "{{ vault_mariadb_password }}"
+mariadb_enabled: true
+mariadb_user: "{{ vault_mariadb_username }}"
+mariadb_password: "{{ vault_mariadb_password }}"
 
-domains: "{{ vault_domains }}"
+ddclient_protocol: namecheap
+ddclient_domains: "{{ vault_domains }}"
 
-webserver:
-  root_dir: "{{ root_dir }}/httpd"
-  sites: "{{ vault_webserver_sites }}"
+httpd_sites: "{{ vault_webserver_sites }}"
 
 minecraft:
   bedrock:

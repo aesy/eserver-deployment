@@ -33,5 +33,5 @@
       APP_URL: "https://wiki.wertwein.com"
       DB_HOST: "mariadb"
       DB_DATABASE: "bookstack"
-      DB_USERNAME: "{{ mariadb.user }}"
-      DB_PASSWORD: "{{ mariadb.password }}"
+      DB_USERNAME: "{{ mariadb_user }}"
+      DB_PASSWORD: "{{ mariadb_password }}"

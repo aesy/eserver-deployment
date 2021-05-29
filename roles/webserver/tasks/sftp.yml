@@ -11,5 +11,5 @@
     create_home: false
     shell: /sbin/nologin
     state: present
-  with_items: "{{ sftp.users }}"
+  with_items: "{{ sftp_users }}"
   no_log: true

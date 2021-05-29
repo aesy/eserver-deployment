@@ -1,9 +1,3 @@
 ---
-docker:
-  root_dir: "/etc/docker"
-
-docker_registry:
-  users: []
-
-watchtower:
-  auth: {}
+docker_auth: []
+docker_registry_users: []

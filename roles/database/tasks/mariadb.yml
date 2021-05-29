@@ -14,6 +14,6 @@
     volumes:
       - "{{ root_dir }}/mariadb/data:/var/lib/mysql"
     env:
-      MYSQL_ROOT_USER: "{{ mariadb.user }}"
-      MYSQL_ROOT_PASSWORD: "{{ mariadb.password }}"
-      MYSQL_PORT: "{{ mariadb.port }}"
+      MYSQL_ROOT_USER: "{{ mariadb_user }}"
+      MYSQL_ROOT_PASSWORD: "{{ mariadb_password }}"
+      MYSQL_PORT: "{{ mariadb_port }}"

@@ -3,9 +3,9 @@ timeout=10
 syslog=yes
 use=web, web=dynamicdns.park-your-domain.com/getip
 server=dynamicdns.park-your-domain.com
-protocol={{ acme_provider }}
+protocol={{ ddclient_protocol }}
 
-{% for domain in domains %}
+{% for domain in ddclient_domains %}
 {% if 'password' in domain %}
 login={{ domain.name }}
 password={{ domain.password }}

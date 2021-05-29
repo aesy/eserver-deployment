@@ -1,10 +1,4 @@
 ---
-- name: Adding config.json file
-  template:
-    src: config.json.j2
-    dest: "{{ docker.root_dir }}/config.json"
-    mode: 0600
-
 - name: Create the Watchtower container
   docker_container:
     name: watchtower
@@ -13,6 +7,5 @@
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/etc/localtime:/etc/localtime:ro"
-      - "{{ docker.root_dir }}/config.json:/config.json:ro"
     # Update containers every hour
     command: --schedule "0 * * * *" --cleanup --debug

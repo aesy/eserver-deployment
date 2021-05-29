@@ -20,8 +20,8 @@
       traefik.enable: "true"
     env:
       DATABASE_HOST: mariadb
-      DATABASE_USERNAME: "{{ mariadb.user }}"
-      DATABASE_PASSWORD: "{{ mariadb.password }}"
+      DATABASE_USERNAME: "{{ mariadb_user }}"
+      DATABASE_PASSWORD: "{{ mariadb_password }}"
 
 - name: Create the yumme web container
   docker_container:
