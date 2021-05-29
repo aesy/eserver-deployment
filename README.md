@@ -4,11 +4,18 @@ This repository contains deployment scripts for my multi-purpose home server cal
 
 ## Prerequisites
 
-* [Ansible 2.6+](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+* [Pipenv](https://pipenv.pypa.io/en/latest/)
 
 ## Usage
 
 First, make sure your SSH config grants you access to the hosts in `inventories/hosts.yml`.
+
+Then install all dependencies and activate the virtual environment:
+
+```shell
+$ pipenv install 
+$ pipenv shell
+```
 
 ### Health check
 
