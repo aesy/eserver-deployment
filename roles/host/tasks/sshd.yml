@@ -9,12 +9,13 @@
     home: "{{ item.home }}"
     state: present
   with_items: "{{ ssh_users }}"
+  no_log: true
 
 - name: Configure user sudo permissions
   lineinfile:
     dest: "/etc/sudoers.d/{{ item.username }}"
     line: "{{ item.username }} ALL=(ALL) NOPASSWD: ALL"
-    create: yes
+    create: true
     state: present
   with_items: "{{ ssh_users }}"
 

@@ -31,7 +31,7 @@
     image: httpd:2.4-alpine
     restart_policy: unless-stopped
     networks:
-    - name: web
+      - name: web
     volumes: "{{ lookup('template', 'volumes.yml.j2') | from_yaml }}"
     labels:
       traefik.http.routers.httpd.rule: "{% for site in webserver.sites %}Host(`{{ site.url }}`){% if not loop.last %} || {% endif %}{% endfor %}"

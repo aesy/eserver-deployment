@@ -8,7 +8,8 @@
   user:
     name: "{{ item.name }}"
     password: "{{ item.password | password_hash('sha512', item.salt) }}"
-    create_home: no
+    create_home: false
     shell: /sbin/nologin
     state: present
   with_items: "{{ sftp.users }}"
+  no_log: true

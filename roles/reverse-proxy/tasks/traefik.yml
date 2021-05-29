@@ -23,7 +23,7 @@
     name: traefik
     image: traefik:v2.2.1
     restart_policy: always
-    restart: yes
+    restart: true
     networks:
       - name: web
       - name: internal

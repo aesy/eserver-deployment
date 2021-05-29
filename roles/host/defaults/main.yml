@@ -11,5 +11,5 @@ sftp_users: []
 
 firewall:
   allowed:
-  - port: "{{ ssh_port }}"
-    protocol: tcp
+    - port: "{{ ssh_port }}"
+      protocol: tcp

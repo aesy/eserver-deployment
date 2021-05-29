@@ -9,8 +9,8 @@
   firewalld:
     port: "{{ item.port }}/{{ item.protocol }}"
     zone: public
-    immediate: yes
-    permanent: yes
+    immediate: true
+    permanent: true
     state: enabled
   with_items: "{{ firewall.allowed }}"
 
@@ -18,6 +18,6 @@
   firewalld:
     zone: public
     masquerade: "yes"
-    immediate: yes
-    permanent: yes
+    immediate: true
+    permanent: true
     state: enabled

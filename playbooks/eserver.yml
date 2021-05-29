@@ -2,7 +2,7 @@
 - name: Provisioning eserver
   hosts:
   - eserver
-  become: yes
+  become: true
   roles:
   - host
   - docker

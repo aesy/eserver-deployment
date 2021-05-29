@@ -1,7 +1,7 @@
 ---
 minecraft:
   bedrock:
-    enabled: no
+    enabled: false
     root_dir: /opt/minecraft/bedrock
     allow_cheats: true
     difficulty: hard
@@ -12,8 +12,8 @@ minecraft:
     server_name: minecraft
     tick_distance: 6
     view_distance: 32
-    players: { }
+    players: {}
   ftb:
-    enabled: no
+    enabled: false
     root_dir: /opt/minecraft/ftb
-    players: { }
+    players: {}

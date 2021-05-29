@@ -4,10 +4,10 @@
     name: "{{ item }}"
     state: latest
   loop:
-  - epel-release
-  - yum-utils
-  - sudo
-  - curl
-  - git
-  - htop
-  - nano
+    - epel-release
+    - yum-utils
+    - sudo
+    - curl
+    - git
+    - htop
+    - nano

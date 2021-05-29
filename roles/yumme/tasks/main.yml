@@ -10,10 +10,10 @@
     image: ghcr.io/aesy/yumme-server:latest
     restart_policy: unless-stopped
     networks:
-    - name: web
-    - name: internal
+      - name: web
+      - name: internal
     volumes:
-    - "{{ root_dir }}/yumme/uploads:/app/uploads"
+      - "{{ root_dir }}/yumme/uploads:/app/uploads"
     labels:
       traefik.http.routers.yumme-server.rule: "Host(`yumme.wertwein.com`) && PathPrefix(`/api/v1`)"
       traefik.http.services.yumme-server.loadbalancer.server.port: "8080"
@@ -29,7 +29,7 @@
     image: ghcr.io/aesy/yumme-web:latest
     restart_policy: unless-stopped
     networks:
-    - name: web
+      - name: web
     labels:
       traefik.http.routers.yumme-web.rule: "Host(`yumme.wertwein.com`)"
       traefik.http.services.yumme-web.loadbalancer.server.port: "80"

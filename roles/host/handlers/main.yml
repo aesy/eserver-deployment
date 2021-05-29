@@ -19,4 +19,4 @@
     state: absent
     path: "/home/{{ item.username }}/.ssh/authorized_keys"
   with_items:
-  - "{{ ssh_users }}"
+    - "{{ ssh_users }}"

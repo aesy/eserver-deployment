@@ -52,7 +52,7 @@
     source: build
     build:
       path: "{{ minecraft.ftb.root_dir }}"
-      pull: no
+      pull: false
 
 - name: Create the minecraft container
   docker_container:
@@ -60,14 +60,14 @@
     image: minecraft_ftb:latest
     restart_policy: unless-stopped
     ports:
-    - "25565:25565"
+      - "25565:25565"
     networks:
-    - name: web
+      - name: web
     volumes:
-    - "{{ minecraft.ftb.root_dir }}/data:/minecraft/world"
-    - "{{ minecraft.ftb.root_dir }}/backups:/minecraft/backups"
-    - "{{ minecraft.ftb.root_dir }}/server.properties:/minecraft/server.properties"
-    - "{{ minecraft.ftb.root_dir }}/whitelist.json:/minecraft/whitelist.json"
-    - "{{ minecraft.ftb.root_dir }}/ops.json:/minecraft/ops.json"
-    - "{{ minecraft.ftb.root_dir }}/journeymap.server.global.config:/minecraft/journeymap/server/5.5/journeymap.server.global.config"
-    - "{{ minecraft.ftb.root_dir }}/server-icon.png:/minecraft/server-icon.png"
+      - "{{ minecraft.ftb.root_dir }}/data:/minecraft/world"
+      - "{{ minecraft.ftb.root_dir }}/backups:/minecraft/backups"
+      - "{{ minecraft.ftb.root_dir }}/server.properties:/minecraft/server.properties"
+      - "{{ minecraft.ftb.root_dir }}/whitelist.json:/minecraft/whitelist.json"
+      - "{{ minecraft.ftb.root_dir }}/ops.json:/minecraft/ops.json"
+      - "{{ minecraft.ftb.root_dir }}/journeymap.server.global.config:/minecraft/journeymap/server/5.5/journeymap.server.global.config"
+      - "{{ minecraft.ftb.root_dir }}/server-icon.png:/minecraft/server-icon.png"
