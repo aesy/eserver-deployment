@@ -3,6 +3,7 @@
   file:
     path: "{{ root_dir }}/yumme/uploads"
     state: directory
+    mode: 0644
 
 - name: Create the yumme server container
   docker_container:
