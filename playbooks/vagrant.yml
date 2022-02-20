@@ -1,7 +1,7 @@
 ---
-- name: Provisioning eserver
+- name: Provisioning vagrant
   hosts:
-  - eserver
+  - vagrant
   become: true
   roles:
   - docker

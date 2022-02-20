@@ -1,23 +1,16 @@
 ---
-- name: Ensure firewalld is running
-  service:
-    name: firewalld
-    state: started
-    enabled: true
+- name: Ensures firewall package is installed
+  package:
+    name: ufw
+    state: latest
+
+- name: Ensures ufw is running
+  ufw:
+    state: enabled
 
 - name: Open firewall ports
-  firewalld:
-    port: "{{ item.port }}/{{ item.protocol }}"
-    zone: public
-    immediate: true
-    permanent: true
-    state: enabled
+  ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: "{{ item.protocol }}"
   with_items: "{{ firewall_allowed }}"
-
-- name: Allow masquerading
-  firewalld:
-    zone: public
-    masquerade: "yes"
-    immediate: true
-    permanent: true
-    state: enabled
