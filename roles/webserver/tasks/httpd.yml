@@ -36,7 +36,6 @@
     labels:
       traefik.http.routers.httpd.rule: "{% for site in httpd_sites %}Host(`{{ site.url }}`){% if not loop.last %} || {% endif %}{% endfor %}"
       traefik.http.services.httpd.loadbalancer.server.port: "80"
-      traefik.docker.network: "web"
       traefik.enable: "true"
     env:
       VIRTUAL_HOST: "{{ httpd_sites | map(attribute='url') | join(',') }}"
