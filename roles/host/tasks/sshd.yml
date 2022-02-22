@@ -18,6 +18,7 @@
     create: true
     state: present
     validate: "visudo -cf %s"
+    mode: 0644
   with_items: "{{ ssh_users }}"
   no_log: true
 

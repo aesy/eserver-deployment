@@ -4,9 +4,9 @@
     name: "{{ item }}"
     state: latest
   loop:
-  - sudo
-  - gnupg
-  - curl
-  - git
-  - htop
-  - nano
+    - sudo
+    - gnupg
+    - curl
+    - git
+    - htop
+    - nano

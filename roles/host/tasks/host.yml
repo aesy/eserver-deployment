@@ -3,6 +3,7 @@
   copy:
     content: "{{ hostname }}"
     dest: /etc/hostname
+    mode: 0644
 
 - name: Configure MOTD
   copy:

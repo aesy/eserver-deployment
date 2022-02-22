@@ -3,26 +3,27 @@
   file:
     path: "{{ root_dir }}/httpd"
     state: directory
+    mode: 0755
 
 - name: Adding httpd.conf file
   copy:
     src: httpd.conf
     dest: "{{ root_dir }}/httpd/httpd.conf"
-    mode: 0600
+    mode: 0644
 
 - name: Adding httpd-vhosts.conf file
   template:
     src: httpd-vhosts.conf.j2
     dest: "{{ root_dir }}/httpd/httpd-vhosts.conf"
-    mode: 0600
+    mode: 0644
 
 - name: Ensures site dirs exists
   file:
     path: "{{ root_dir }}/httpd/{{ item.owner }}/{{ item.url }}"
     owner: "{{ item.owner }}"
     group: sftp
-    mode: u=rwX,g=rX,o=rX
     state: directory
+    mode: 0755
   with_items: "{{ httpd_sites }}"
 
 - name: Create the httpd container

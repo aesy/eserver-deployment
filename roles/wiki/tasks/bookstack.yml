@@ -3,16 +3,19 @@
   file:
     path: "{{ root_dir }}/bookstack"
     state: directory
+    mode: 0755
 
 - name: Ensures bookstack public uploads dir exists
   file:
     path: "{{ root_dir }}/bookstack/data/public"
     state: directory
+    mode: 0755
 
 - name: Ensures bookstack storage uploads dir exists
   file:
     path: "{{ root_dir }}/bookstack/data/storage"
     state: directory
+    mode: 0755
 
 - name: Create the bookstack container
   docker_container:

@@ -3,6 +3,7 @@
   file:
     path: "{{ root_dir }}/portainer/data"
     state: directory
+    mode: 0755
 
 - name: Create the portainer container
   docker_container:

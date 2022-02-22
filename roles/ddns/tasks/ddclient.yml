@@ -3,6 +3,7 @@
   file:
     path: "{{ root_dir }}/ddclient"
     state: directory
+    mode: 0755
 
 - name: Add ddclient.conf file
   template:

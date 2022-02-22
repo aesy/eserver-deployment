@@ -3,47 +3,49 @@
   file:
     path: "{{ minecraft.ftb.root_dir }}/data"
     state: directory
+    mode: 0755
 
 - name: Ensures minecraft backup dir exists
   file:
     path: "{{ minecraft.ftb.root_dir }}/backups"
     state: directory
+    mode: 0755
 
 - name: Adding server.properties file
   template:
     src: ftb/server.properties.j2
     dest: "{{ minecraft.ftb.root_dir }}/server.properties"
-    mode: 0600
+    mode: 0644
 
 - name: Adding whitelist.json file
   template:
     src: ftb/whitelist.json.j2
     dest: "{{ minecraft.ftb.root_dir }}/whitelist.json"
-    mode: 0600
+    mode: 0644
 
 - name: Adding ops.json file
   template:
     src: ftb/ops.json.j2
     dest: "{{ minecraft.ftb.root_dir }}/ops.json"
-    mode: 0600
+    mode: 0644
 
 - name: Adding journeymap config file
   copy:
     src: ftb/journeymap.server.global.config
     dest: "{{ minecraft.ftb.root_dir }}/journeymap.server.global.config"
-    mode: 0600
+    mode: 0644
 
 - name: Adding server icon file
   copy:
     src: ftb/server-icon.png
     dest: "{{ minecraft.ftb.root_dir }}/server-icon.png"
-    mode: 0600
+    mode: 0644
 
 - name: Add Dockerfile
   copy:
     src: ftb/Dockerfile
     dest: "{{ minecraft.ftb.root_dir }}/Dockerfile"
-    mode: 0600
+    mode: 0644
 
 - name: Create the minecraft image
   docker_image:

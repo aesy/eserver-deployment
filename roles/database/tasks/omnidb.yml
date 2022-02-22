@@ -3,13 +3,13 @@
   file:
     path: "{{ root_dir }}/omnidb/data"
     state: directory
-    mode: 0777
+    mode: 0755
 
 - name: Copy omnidb configuration file
   copy:
     src: omnidb.conf
     dest: "{{ root_dir }}/omnidb/data/omnidb.conf"
-    mode: 0600
+    mode: 0644
 
 - name: Create the omnidb container
   docker_container:
