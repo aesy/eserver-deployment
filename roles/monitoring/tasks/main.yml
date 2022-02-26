@@ -1,0 +1,7 @@
+---
+- include_tasks: grafana.yml
+- include_tasks: loki.yml
+- include_tasks: prometheus.yml
+- include_tasks: node-exporter.yml
+- include_tasks: cadvisor.yml
+- include_tasks: promtail.yml

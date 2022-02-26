@@ -1,0 +1,17 @@
+---
+- name: Create the cadvisor container
+  docker_container:
+    name: cadvisor
+    image: gcr.io/cadvisor/cadvisor:v0.43.0
+    restart_policy: always
+    privileged: true
+    networks:
+      - name: internal
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/dev/disk/:/dev/disk:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+    devices:
+      - "/dev/kmsg:/dev/kmsg"

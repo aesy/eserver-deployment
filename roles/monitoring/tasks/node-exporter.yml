@@ -1,0 +1,13 @@
+---
+- name: Create the node exporter container
+  docker_container:
+    name: node-exporter
+    image: prom/node-exporter:v1.3.1
+    pid_mode: host
+    command:
+      - "--path.rootfs=/host"
+    restart_policy: always
+    networks:
+      - name: internal
+    volumes:
+      - "/:/host:ro,rslave"

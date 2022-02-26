@@ -1,0 +1,24 @@
+---
+- name: Ensures promtail dir exists
+  file:
+    path: "{{ root_dir }}/promtail/data"
+    state: directory
+    mode: 0777
+
+- name: Adding promtail configuration file
+  template:
+    src: promtail.yml
+    dest: "{{ root_dir }}/promtail/config.yml"
+    mode: 0644
+
+- name: Create the promtail container
+  docker_container:
+    name: promtail
+    image: grafana/promtail:2.4.2
+    restart_policy: always
+    networks:
+      - name: internal
+    volumes:
+      - "{{ root_dir }}/promtail/config.yml:/etc/promtail/config.yml"
+      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
+      - "/var/log:/var/log:ro"

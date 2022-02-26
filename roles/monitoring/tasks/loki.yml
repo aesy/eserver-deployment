@@ -1,0 +1,16 @@
+---
+- name: Ensures loki dir exists
+  file:
+    path: "{{ root_dir }}/loki/data"
+    state: directory
+    mode: 0777
+
+- name: Create the loki container
+  docker_container:
+    name: loki
+    image: grafana/loki:2.4.2
+    restart_policy: always
+    networks:
+      - name: internal
+    volumes:
+      - "{{ root_dir }}/loki/data:/loki"

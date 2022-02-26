@@ -9,6 +9,7 @@
   - ddns
   - webserver
   - database
+  - monitoring
   - wiki
   - password-manager
   - portainer
