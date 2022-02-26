@@ -3,7 +3,7 @@
   file:
     path: "{{ root_dir }}/omnidb/data"
     state: directory
-    mode: 0755
+    mode: 0777
 
 - name: Copy omnidb configuration file
   copy:
