@@ -1,0 +1,20 @@
+---
+- name: Ensures openvpn dir exists
+  file:
+    path: "{{ root_dir }}/openvpn/data"
+    state: directory
+    mode: 0755
+
+- name: Create the openvpn container
+  docker_container:
+    name: openvpn
+    image: kylemanna/openvpn:2.4
+    restart_policy: unless-stopped
+    capabilities:
+      - NET_ADMIN
+    ports:
+      - "1194:1194/udp"
+    networks:
+      - name: web
+    volumes:
+      - "{{ root_dir }}/openvpn/data:/etc/openvpn"

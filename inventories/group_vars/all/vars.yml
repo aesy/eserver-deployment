@@ -10,6 +10,8 @@ firewall_allowed:
     protocol: tcp
   - port: "{{ ssh_port }}"
     protocol: tcp
+  - port: 1194  # VPN
+    protocol: udp
 
 docker_auth:
   - registry: ghcr.io
