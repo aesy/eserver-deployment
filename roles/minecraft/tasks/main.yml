@@ -1,5 +1,7 @@
 ---
-- include_tasks: bedrock.yml
+- name: Include Minecraft Bedrock Edition tasks
+  ansible.builtin.include_tasks: bedrock.yml
   when: "minecraft.bedrock.enabled | bool"
-- include_tasks: ftb.yml
+- name: Include Minecraft Java Edition tasks
+  ansible.builtin.include_tasks: ftb.yml
   when: "minecraft.ftb.enabled | bool"

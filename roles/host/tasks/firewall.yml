@@ -1,15 +1,15 @@
 ---
 - name: Ensures firewall package is installed
-  package:
+  ansible.builtin.package:
     name: ufw
     state: latest
 
 - name: Ensures ufw is running
-  ufw:
+  community.general.ufw:
     state: enabled
 
 - name: Open firewall ports
-  ufw:
+  community.general.ufw:
     rule: allow
     port: "{{ item.port }}"
     proto: "{{ item.protocol }}"

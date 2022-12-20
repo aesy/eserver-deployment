@@ -1,3 +1,4 @@
 ---
-- include_tasks: ddclient.yml
+- name: Include DDClient tasks
+  ansible.builtin.include_tasks: ddclient.yml
   when: "ddclient_protocol is defined"

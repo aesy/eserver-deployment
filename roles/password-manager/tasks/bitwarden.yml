@@ -1,12 +1,12 @@
 ---
 - name: Ensures bitwarden dir exists
-  file:
+  ansible.builtin.file:
     path: "{{ root_dir }}/bitwarden/data"
     state: directory
     mode: 0755
 
 - name: Create the bitwarden container
-  docker_container:
+  community.docker.docker_container:
     name: bitwarden
     image: bitwardenrs/server:1.17.0-alpine
     restart_policy: unless-stopped

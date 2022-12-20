@@ -1,12 +1,12 @@
 ---
 - name: Configure hostname
-  copy:
+  ansible.builtin.copy:
     content: "{{ hostname }}"
     dest: /etc/hostname
     mode: 0644
 
 - name: Configure MOTD
-  copy:
+  ansible.builtin.copy:
     src: login-info.sh
     dest: /etc/profile.d/login-info.sh
     owner: root

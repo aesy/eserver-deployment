@@ -1,18 +1,18 @@
 ---
 - name: Ensures ddclient dir exists
-  file:
+  ansible.builtin.file:
     path: "{{ root_dir }}/ddclient"
     state: directory
     mode: 0755
 
 - name: Add ddclient.conf file
-  template:
+  ansible.builtin.template:
     src: ddclient.conf.j2
     dest: "{{ root_dir }}/ddclient/ddclient.conf"
     mode: 0600
 
 - name: Create the ddclient container
-  docker_container:
+  community.docker.docker_container:
     name: ddclient
     image: mace/ddclient
     restart_policy: always

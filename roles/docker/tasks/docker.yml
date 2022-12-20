@@ -1,6 +1,6 @@
 ---
 - name: Ensures required system packages are installed
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
     update_cache: true
@@ -14,41 +14,41 @@
     - python3-setuptools
 
 - name: Add Docker signing key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/debian/gpg
     id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
     state: present
 
 - name: Add Docker repo
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable
     state: present
 
 - name: Install Docker
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     name: docker-ce
     state: latest
 
 - name: Install Docker module for Python
-  pip:
+  ansible.builtin.pip:
     name: docker
 
 - name: Ensures docker dir exists
-  file:
+  ansible.builtin.file:
     path: "/etc/docker"
     state: directory
     mode: 0755
 
 - name: Configure Docker daemon
-  template:
+  ansible.builtin.template:
     src: daemon.json.j2
     dest: "/etc/docker/daemon.json"
     mode: 0644
-  notify: restart docker
+  notify: Restart docker
 
 - name: Log into registries
-  docker_login:
+  community.docker.docker_login:
     registry: "{{ item.registry }}"
     username: "{{ item.username }}"
     password: "{{ item.password }}"
@@ -56,17 +56,17 @@
   no_log: true
 
 - name: Start Docker service
-  service:
+  ansible.builtin.service:
     name: docker
     state: started
     enabled: true
 
 - name: Ensures the internal network exists
-  docker_network:
+  community.docker.docker_network:
     name: internal
     driver: bridge
 
 - name: Ensures the web network exists
-  docker_network:
+  community.docker.docker_network:
     name: web
     driver: bridge

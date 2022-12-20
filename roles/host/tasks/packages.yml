@@ -1,6 +1,6 @@
 ---
 - name: Ensures common packages are installed
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: latest
   loop:

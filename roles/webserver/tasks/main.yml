@@ -1,3 +1,5 @@
 ---
-- include_tasks: sftp.yml
-- include_tasks: httpd.yml
+- name: Include SFTP tasks
+  ansible.builtin.include_tasks: sftp.yml
+- name: Include httpd tasks
+  ansible.builtin.include_tasks: httpd.yml

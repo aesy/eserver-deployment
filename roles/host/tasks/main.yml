@@ -1,5 +1,9 @@
 ---
-- include_tasks: packages.yml
-- include_tasks: host.yml
-- include_tasks: sshd.yml
-- include_tasks: firewall.yml
+- name: Include packages tasks
+  ansible.builtin.include_tasks: packages.yml
+- name: Include host tasks
+  ansible.builtin.include_tasks: host.yml
+- name: Include sshd tasks
+  ansible.builtin.include_tasks: sshd.yml
+- name: Include firewall tasks
+  ansible.builtin.include_tasks: firewall.yml

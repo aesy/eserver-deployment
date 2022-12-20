@@ -1,7 +1,10 @@
 ---
-- include_tasks: mariadb.yml
+- name: Include MariaDB tasks
+  ansible.builtin.include_tasks: mariadb.yml
   when: "mariadb_enabled is true"
-- include_tasks: postgres.yml
+- name: Include PostgreSQL tasks
+  ansible.builtin.include_tasks: postgres.yml
   when: "postgres_enabled is true"
-- include_tasks: omnidb.yml
+- name: Include OmniDB tasks
+  ansible.builtin.include_tasks: omnidb.yml
   when: "mariadb_enabled is true or postgres_enabled is true"

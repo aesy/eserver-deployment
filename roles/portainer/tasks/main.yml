@@ -1,12 +1,12 @@
 ---
 - name: Ensures portainer dir exists
-  file:
+  ansible.builtin.file:
     path: "{{ root_dir }}/portainer/data"
     state: directory
     mode: 0755
 
 - name: Create the portainer container
-  docker_container:
+  community.docker.docker_container:
     name: portainer
     image: portainer/portainer:1.22.0
     restart_policy: unless-stopped

@@ -1,6 +1,6 @@
 ---
 - name: Create the node exporter container
-  docker_container:
+  community.docker.docker_container:
     name: node-exporter
     image: prom/node-exporter:v1.3.1
     pid_mode: host

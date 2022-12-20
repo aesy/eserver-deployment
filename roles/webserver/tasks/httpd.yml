@@ -1,24 +1,24 @@
 ---
 - name: Ensures http dir exists
-  file:
+  ansible.builtin.file:
     path: "{{ root_dir }}/httpd"
     state: directory
     mode: 0755
 
 - name: Adding httpd.conf file
-  copy:
+  ansible.builtin.copy:
     src: httpd.conf
     dest: "{{ root_dir }}/httpd/httpd.conf"
     mode: 0644
 
 - name: Adding httpd-vhosts.conf file
-  template:
+  ansible.builtin.template:
     src: httpd-vhosts.conf.j2
     dest: "{{ root_dir }}/httpd/httpd-vhosts.conf"
     mode: 0644
 
 - name: Ensures site dirs exists
-  file:
+  ansible.builtin.file:
     path: "{{ root_dir }}/httpd/{{ item.owner }}/{{ item.url }}"
     owner: "{{ item.owner }}"
     group: sftp
@@ -27,7 +27,7 @@
   with_items: "{{ httpd_sites }}"
 
 - name: Create the httpd container
-  docker_container:
+  community.docker.docker_container:
     name: httpd
     image: httpd:2.4-alpine
     restart_policy: unless-stopped

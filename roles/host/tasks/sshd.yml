@@ -1,6 +1,6 @@
 ---
 - name: Add user
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     password: "{{ item.password | password_hash('bcrypt', item.salt) }}"
     shell: "{{ item.shell }}"
@@ -12,7 +12,7 @@
   no_log: true
 
 - name: Configure user sudo permissions
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: "/etc/sudoers.d/{{ item.username }}"
     line: "{{ item.username }} ALL=(ALL) NOPASSWD: ALL"
     create: true
@@ -23,15 +23,15 @@
   no_log: true
 
 - name: Set up users authorized_keys
-  authorized_key:
+  ansible.posix.authorized_key:
     user: "{{ item.username }}"
     key: "{{ lookup('file', '{{ item.key }}') }}"
   with_items: "{{ ssh_users }}"
   no_log: true
 
 - name: Harden SSH configuration
-  template:
+  ansible.builtin.template:
     src: sshd_config.j2
     dest: "/etc/ssh/sshd_config"
     mode: 0600
-  notify: restart sshd
+  notify: Restart sshd

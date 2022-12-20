@@ -1,7 +1,13 @@
 ---
-- include_tasks: grafana.yml
-- include_tasks: loki.yml
-- include_tasks: prometheus.yml
-- include_tasks: node-exporter.yml
-- include_tasks: cadvisor.yml
-- include_tasks: promtail.yml
+- name: Include Grafana tasks
+  ansible.builtin.include_tasks: grafana.yml
+- name: Include Loki tasks
+  ansible.builtin.include_tasks: loki.yml
+- name: Include Prometheus tasks
+  ansible.builtin.include_tasks: prometheus.yml
+- name: Include Node Exporter tasks
+  ansible.builtin.include_tasks: node-exporter.yml
+- name: Include Cadvisor tasks
+  ansible.builtin.include_tasks: cadvisor.yml
+- name: Include Promtail tasks
+  ansible.builtin.include_tasks: promtail.yml

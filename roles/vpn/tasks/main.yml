@@ -1,12 +1,12 @@
 ---
 - name: Ensures openvpn dir exists
-  file:
+  ansible.builtin.file:
     path: "{{ root_dir }}/openvpn/data"
     state: directory
     mode: 0755
 
 - name: Create the openvpn container
-  docker_container:
+  community.docker.docker_container:
     name: openvpn
     image: kylemanna/openvpn:2.4
     restart_policy: unless-stopped

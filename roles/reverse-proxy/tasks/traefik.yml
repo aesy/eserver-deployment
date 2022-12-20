@@ -1,12 +1,12 @@
 ---
 - name: Ensures traefik dir exists
-  file:
+  ansible.builtin.file:
     path: "{{ root_dir }}/traefik"
     state: directory
     mode: 0755
 
 - name: Ensures acme.json file exists
-  file:
+  ansible.builtin.file:
     path: "{{ root_dir }}/traefik/acme.json"
     state: touch
     mode: 0600
@@ -14,13 +14,13 @@
     modification_time: preserve
 
 - name: Copy traefik configuration file
-  template:
+  ansible.builtin.template:
     src: traefik.yaml.j2
     dest: "{{ root_dir }}/traefik/traefik.yaml"
     mode: 0644
 
 - name: Ensures traefik container is running
-  docker_container:
+  community.docker.docker_container:
     name: traefik
     image: traefik:v2.2.1
     restart_policy: always

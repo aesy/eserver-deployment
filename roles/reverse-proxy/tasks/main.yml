@@ -1,2 +1,3 @@
 ---
-- include_tasks: traefik.yml
+- name: Include Traefik tasks
+  ansible.builtin.include_tasks: traefik.yml

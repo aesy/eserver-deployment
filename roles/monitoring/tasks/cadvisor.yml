@@ -1,6 +1,6 @@
 ---
 - name: Create the cadvisor container
-  docker_container:
+  community.docker.docker_container:
     name: cadvisor
     image: gcr.io/cadvisor/cadvisor:v0.43.0
     restart_policy: always

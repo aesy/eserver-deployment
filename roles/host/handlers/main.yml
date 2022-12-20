@@ -1,21 +1,21 @@
 ---
-- name: restart server
-  reboot:
+- name: Restart server
+  ansible.builtin.reboot:
     reboot_timeout: 300
 
-- name: restart sshd
-  service:
+- name: Restart sshd
+  ansible.builtin.service:
     name: sshd
     state: restarted
 
-- name: restart firewalld
-  systemd:
+- name: Restart firewalld
+  ansible.builtin.systemd:
     name: firewalld
     state: restarted
     daemon_reload: true
 
-- name: cleanup authorized_keys
-  file:
+- name: Cleanup authorized_keys
+  ansible.builtin.file:
     state: absent
     path: "/home/{{ item.username }}/.ssh/authorized_keys"
   with_items:
