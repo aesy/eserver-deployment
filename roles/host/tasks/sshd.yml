@@ -7,7 +7,7 @@
 - name: Add user
   ansible.builtin.user:
     name: "{{ item.username }}"
-    password: "{{ item.password | password_hash }}"
+    password: "{{ item.password | password_hash(salt=item.salt) }}"
     shell: "{{ item.shell }}"
     groups: "{{ item.groups }}"
     create_home: true

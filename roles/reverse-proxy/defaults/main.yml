@@ -7,3 +7,4 @@ namecheap_api_key: ""
 
 traefik_user: "traefik"
 traefik_password: "traefik"
+traefik_salt: ""

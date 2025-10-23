@@ -40,7 +40,7 @@
       traefik.http.routers.traefik.service: "api@internal"
       traefik.http.routers.traefik.middlewares: "auth"
       traefik.http.services.traefik.loadbalancer.server.port: "8080"
-      traefik.http.middlewares.auth.basicauth.users: "{{ traefik_user }}:{{ traefik_password | password_hash }}"
+      traefik.http.middlewares.auth.basicauth.users: "{{ traefik_user }}:{{ traefik_password | password_hash(salt=traefik_salt) }}"
       traefik.enable: "true"
     env:
       NAMECHEAP_API_USER: "{{ namecheap_api_user }}"

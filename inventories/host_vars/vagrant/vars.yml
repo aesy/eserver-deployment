@@ -4,6 +4,7 @@ ssh_port: 22
 ssh_users:
 - username: test
   password: test
+  salt: abcdefghijklmnopqrstuv
   shell: /bin/bash
   groups:
   - sudo

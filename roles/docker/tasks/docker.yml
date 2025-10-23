@@ -17,10 +17,7 @@
     components: stable
     signed_by: "https://download.docker.com/linux/debian/gpg"
     state: present
-
-- name: Update APT cache
-  ansible.builtin.apt:
-    update_cache: true
+  notify: Update APT cache
 
 - name: Install Docker Engine and tools
   ansible.builtin.package:
