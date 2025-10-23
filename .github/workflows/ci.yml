@@ -10,29 +10,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install pipenv
-      run: pip install pipenv
-    - name: Check pipenv cache
-      id: cache-pipenv
-      uses: actions/cache@v2
-      with:
-        path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-pipenv-v2-${{ hashFiles('**/Pipfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pipenv-v2-
-    - name: Install dependencies
-      if: steps.cache-pipenv.outputs.cache-hit != 'true'
-      run: pipenv install
-    - name: Lint
-      run: |
-        echo "$VAULT_PASSWORD" > .vault_password
-        pipenv run ansible-lint playbooks
-
-      env:
-        VAULT_PASSWORD: ${{ secrets.VAULT_PASSWORD }}
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install just
+        uses: extractions/setup-just@v3
+      - name: Install UV
+        uses: astral-sh/setup-uv@v7
+      - name: Install dependencies
+        run: just install
+      - name: Prepare vault password
+        run: echo "$VAULT_PASSWORD" > .vault_password
+        env:
+          VAULT_PASSWORD: ${{ secrets.VAULT_PASSWORD }}
+      - name: Lint
+        run: just lint

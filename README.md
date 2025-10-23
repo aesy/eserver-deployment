@@ -5,12 +5,14 @@
 [github-actions-image]: https://img.shields.io/github/actions/workflow/status/aesy/eserver-deployment/ci.yml?branch=master&style=flat-square
 [github-actions-url]: https://github.com/aesy/eserver-deployment/actions
 
+# https://github.com/TheRealBecks/uv-ansible-example/tree/main
+
 This repository contains deployment scripts for my multi-purpose home server called **eServer**.
 
 ## Prerequisites
 
-* [Python 3](https://www.python.org/)
-* [Pipenv](https://pipenv.pypa.io/en/latest/)
+* [Just](https://just.systems/)
+* [UV](https://docs.astral.sh/uv/)
 * [Vagrant 2](https://www.vagrantup.com/) (optional, for testing)
 * [VirtualBox 6](https://www.virtualbox.org/) (optional, for testing)
 
@@ -21,8 +23,7 @@ First, make sure your SSH config grants you access to the hosts in `inventories/
 Then install all dependencies and activate the virtual environment:
 
 ```shell
-$ pipenv install 
-$ pipenv shell
+$ just install 
 ```
 
 ### Health check
@@ -30,18 +31,22 @@ $ pipenv shell
 Make sure your connections are okay:
 
 ```shell
-$ ansible -m ping all
+$ just ping
 ```
 
 ### Provisioning
 
-Start provisioning:
+Perform a dry-run:
 
 ```shell
-$ ansible-playbook playbooks/eserver.yml --diff
+$ just check 
 ```
 
-Add `--check` or `-C` to the above command to do a dry-run.
+Actually start provisioning:
+
+```shell
+$ just apply
+```
 
 ## Secrets
 
@@ -49,7 +54,7 @@ Secrets are managed by `ansible-vault`. Create a `.vault_password` file in the r
 password if one doesn't already exist, then edit secrets using the following command:
 
 ```shell
-$ ansible-vault edit inventories/<...>/secrets.yml
+$ just edit inventories/<...>/secrets.yml
 ```
 
 ## Testing
@@ -57,7 +62,7 @@ $ ansible-vault edit inventories/<...>/secrets.yml
 ### Linting
 
 ```shell
-$ ansible-lint playbooks
+$ just lint
 $ vagrant validate
 ```
 
