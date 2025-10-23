@@ -5,8 +5,6 @@
 [github-actions-image]: https://img.shields.io/github/actions/workflow/status/aesy/eserver-deployment/ci.yml?branch=master&style=flat-square
 [github-actions-url]: https://github.com/aesy/eserver-deployment/actions
 
-# https://github.com/TheRealBecks/uv-ansible-example/tree/main
-
 This repository contains deployment scripts for my multi-purpose home server called **eServer**.
 
 ## Prerequisites

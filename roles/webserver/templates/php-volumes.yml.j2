@@ -1,0 +1,3 @@
+{% for site in httpd_sites %}
+- "{{ root_dir }}/httpd/{{ site.owner }}/{{ site.url }}:/usr/local/apache2/htdocs/{{ site.url }}:ro"
+{% endfor %}
