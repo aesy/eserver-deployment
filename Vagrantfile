@@ -2,7 +2,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "vagrant" do |machine|
-    machine.vm.box = "debian/bullseye64"
+    machine.vm.box = "debian/bookworm64"
     machine.vm.network "private_network", type: "dhcp"
   end
 

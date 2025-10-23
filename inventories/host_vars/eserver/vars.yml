@@ -4,7 +4,6 @@ sftp_users: "{{ vault_sftp_users }}"
 
 traefik_user: "{{ vault_traefik_username }}"
 traefik_password: "{{ vault_traefik_password }}"
-traefik_salt: "{{ vault_traefik_salt }}"
 
 acme_email: "{{ vault_acme_email }}"
 acme_provider: namecheap

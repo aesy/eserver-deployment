@@ -1,11 +1,16 @@
 ---
+- name: Ensure OpenSSH server is installed
+  ansible.builtin.package:
+    name: openssh-server
+    state: present
+
 - name: Add user
   ansible.builtin.user:
     name: "{{ item.username }}"
-    password: "{{ item.password | password_hash('bcrypt', item.salt) }}"
+    password: "{{ item.password | password_hash }}"
     shell: "{{ item.shell }}"
     groups: "{{ item.groups }}"
-    create_home: "{{ item.home | bool }}"
+    create_home: true
     home: "{{ item.home }}"
     state: present
   with_items: "{{ ssh_users }}"
@@ -17,15 +22,15 @@
     line: "{{ item.username }} ALL=(ALL) NOPASSWD: ALL"
     create: true
     state: present
-    validate: "visudo -cf %s"
-    mode: 0644
+    validate: '/usr/sbin/visudo -cf %s'
+    mode: "0440"
   with_items: "{{ ssh_users }}"
   no_log: true
 
 - name: Set up users authorized_keys
   ansible.posix.authorized_key:
     user: "{{ item.username }}"
-    key: "{{ lookup('file', '{{ item.key }}') }}"
+    key: "{{ lookup('file', item.key) }}"
   with_items: "{{ ssh_users }}"
   no_log: true
 
@@ -33,5 +38,5 @@
   ansible.builtin.template:
     src: sshd_config.j2
     dest: "/etc/ssh/sshd_config"
-    mode: 0600
+    mode: "0600"
   notify: Restart sshd

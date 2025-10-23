@@ -7,7 +7,7 @@
 - name: Ensures sftp users exists
   ansible.builtin.user:
     name: "{{ item.name }}"
-    password: "{{ item.password | password_hash('sha512', item.salt) }}"
+    password: "{{ item.password | password_hash }}"
     create_home: false
     shell: /sbin/nologin
     state: present

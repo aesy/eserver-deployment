@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: "{{ root_dir }}/loki/data"
     state: directory
-    mode: 0777
+    mode: "0777"
 
 - name: Create the loki container
   community.docker.docker_container:

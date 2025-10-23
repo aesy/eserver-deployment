@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: "{{ root_dir }}/grafana/data"
     state: directory
-    mode: 0777
+    mode: "0777"
 
 - name: Create the grafana container
   community.docker.docker_container:

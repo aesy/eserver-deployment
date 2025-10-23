@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: "{{ root_dir }}/portainer/data"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Create the portainer container
   community.docker.docker_container:

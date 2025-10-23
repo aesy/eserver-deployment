@@ -3,49 +3,49 @@
   ansible.builtin.file:
     path: "{{ minecraft.ftb.root_dir }}/data"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Ensures minecraft backup dir exists
   ansible.builtin.file:
     path: "{{ minecraft.ftb.root_dir }}/backups"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Adding server.properties file
   ansible.builtin.template:
     src: ftb/server.properties.j2
     dest: "{{ minecraft.ftb.root_dir }}/server.properties"
-    mode: 0644
+    mode: "0644"
 
 - name: Adding whitelist.json file
   ansible.builtin.template:
     src: ftb/whitelist.json.j2
     dest: "{{ minecraft.ftb.root_dir }}/whitelist.json"
-    mode: 0644
+    mode: "0644"
 
 - name: Adding ops.json file
   ansible.builtin.template:
     src: ftb/ops.json.j2
     dest: "{{ minecraft.ftb.root_dir }}/ops.json"
-    mode: 0644
+    mode: "0644"
 
 - name: Adding journeymap config file
   ansible.builtin.copy:
     src: ftb/journeymap.server.global.config
     dest: "{{ minecraft.ftb.root_dir }}/journeymap.server.global.config"
-    mode: 0644
+    mode: "0644"
 
 - name: Adding server icon file
   ansible.builtin.copy:
     src: ftb/server-icon.png
     dest: "{{ minecraft.ftb.root_dir }}/server-icon.png"
-    mode: 0644
+    mode: "0644"
 
 - name: Add Dockerfile
   ansible.builtin.copy:
     src: ftb/Dockerfile
     dest: "{{ minecraft.ftb.root_dir }}/Dockerfile"
-    mode: 0644
+    mode: "0644"
 
 - name: Create the minecraft image
   community.docker.docker_image:

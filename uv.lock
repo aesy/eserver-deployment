@@ -222,7 +222,7 @@ wheels = [
 ]
 
 [[package]]
-name = "eserver-redux"
+name = "eserver"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

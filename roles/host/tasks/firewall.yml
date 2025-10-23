@@ -4,13 +4,13 @@
     name: ufw
     state: latest
 
-- name: Ensures ufw is running
-  community.general.ufw:
-    state: enabled
-
 - name: Open firewall ports
   community.general.ufw:
     rule: allow
     port: "{{ item.port }}"
     proto: "{{ item.protocol }}"
   with_items: "{{ firewall_allowed }}"
+
+- name: Ensures ufw is running
+  community.general.ufw:
+    state: enabled

@@ -3,19 +3,19 @@
   ansible.builtin.file:
     path: "{{ root_dir }}/httpd"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Adding httpd.conf file
   ansible.builtin.copy:
     src: httpd.conf
     dest: "{{ root_dir }}/httpd/httpd.conf"
-    mode: 0644
+    mode: "0644"
 
 - name: Adding httpd-vhosts.conf file
   ansible.builtin.template:
     src: httpd-vhosts.conf.j2
     dest: "{{ root_dir }}/httpd/httpd-vhosts.conf"
-    mode: 0644
+    mode: "0644"
 
 - name: Ensures site dirs exists
   ansible.builtin.file:
@@ -23,7 +23,7 @@
     owner: "{{ item.owner }}"
     group: sftp
     state: directory
-    mode: 0755
+    mode: "0755"
   with_items: "{{ httpd_sites }}"
 
 - name: Create the httpd container

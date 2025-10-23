@@ -1,19 +1,19 @@
 ---
 - name: Provisioning eserver
   hosts:
-  - eserver
+    - eserver
   become: true
   roles:
-  - docker
-  - host
-  - ddns
-  - vpn
-  - webserver
-  - database
-  - monitoring
-  - wiki
-  - password-manager
-  - portainer
-  - minecraft
-  - reverse-proxy
-  - yumme
+    - host
+    - docker
+    - ddns
+    - webserver
+    - reverse-proxy
+#    - vpn
+#    - database
+#    - monitoring
+#    - wiki
+#    - password-manager
+#    - portainer
+#    - minecraft
+#    - yumme

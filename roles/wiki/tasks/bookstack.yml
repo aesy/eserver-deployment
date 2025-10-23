@@ -3,19 +3,19 @@
   ansible.builtin.file:
     path: "{{ root_dir }}/bookstack"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Ensures bookstack public uploads dir exists
   ansible.builtin.file:
     path: "{{ root_dir }}/bookstack/data/public"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Ensures bookstack storage uploads dir exists
   ansible.builtin.file:
     path: "{{ root_dir }}/bookstack/data/storage"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Create the bookstack container
   community.docker.docker_container:

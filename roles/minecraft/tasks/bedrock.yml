@@ -3,25 +3,25 @@
   ansible.builtin.file:
     path: "{{ minecraft.bedrock.root_dir }}/data"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Adding server.properties file
   ansible.builtin.template:
     src: bedrock/server.properties.j2
     dest: "{{ minecraft.bedrock.root_dir }}/data/server.properties"
-    mode: 0644
+    mode: "0644"
 
 - name: Adding whitelist.json file
   ansible.builtin.template:
     src: bedrock/whitelist.json.j2
     dest: "{{ minecraft.bedrock.root_dir }}/data/whitelist.json"
-    mode: 0644
+    mode: "0644"
 
 - name: Adding permissions.json file
   ansible.builtin.template:
     src: bedrock/permissions.json.j2
     dest: "{{ minecraft.bedrock.root_dir }}/data/permissions.json"
-    mode: 0644
+    mode: "0644"
 
 - name: Create the minecraft container
   community.docker.docker_container:

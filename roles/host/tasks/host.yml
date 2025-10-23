@@ -3,7 +3,7 @@
   ansible.builtin.copy:
     content: "{{ hostname }}"
     dest: /etc/hostname
-    mode: 0644
+    mode: "0644"
 
 - name: Configure MOTD
   ansible.builtin.copy:
@@ -11,4 +11,4 @@
     dest: /etc/profile.d/login-info.sh
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"

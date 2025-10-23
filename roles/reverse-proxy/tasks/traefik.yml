@@ -3,13 +3,13 @@
   ansible.builtin.file:
     path: "{{ root_dir }}/traefik"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Ensures acme.json file exists
   ansible.builtin.file:
     path: "{{ root_dir }}/traefik/acme.json"
     state: touch
-    mode: 0600
+    mode: "0600"
     access_time: preserve
     modification_time: preserve
 
@@ -17,7 +17,7 @@
   ansible.builtin.template:
     src: traefik.yaml.j2
     dest: "{{ root_dir }}/traefik/traefik.yaml"
-    mode: 0644
+    mode: "0644"
 
 - name: Ensures traefik container is running
   community.docker.docker_container:
@@ -40,7 +40,7 @@
       traefik.http.routers.traefik.service: "api@internal"
       traefik.http.routers.traefik.middlewares: "auth"
       traefik.http.services.traefik.loadbalancer.server.port: "8080"
-      traefik.http.middlewares.auth.basicauth.users: "{{ traefik_user }}:{{ traefik_password | password_hash('bcrypt', traefik_salt) }}"
+      traefik.http.middlewares.auth.basicauth.users: "{{ traefik_user }}:{{ traefik_password | password_hash }}"
       traefik.enable: "true"
     env:
       NAMECHEAP_API_USER: "{{ namecheap_api_user }}"

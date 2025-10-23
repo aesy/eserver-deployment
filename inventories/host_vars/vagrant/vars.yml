@@ -4,7 +4,6 @@ ssh_port: 22
 ssh_users:
 - username: test
   password: test
-  salt: abcdefghijklmnopqrstuv
   shell: /bin/bash
   groups:
   - sudo
@@ -15,7 +14,6 @@ ssh_users:
 sftp_users:
 - name: sftp
   password: sftp
-  salt: abcdefghijklmnop
   chroot_dir: "{{ root_dir }}/chroot/test"
 
 postgres_enabled: true

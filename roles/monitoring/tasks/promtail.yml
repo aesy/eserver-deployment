@@ -3,13 +3,13 @@
   ansible.builtin.file:
     path: "{{ root_dir }}/promtail/data"
     state: directory
-    mode: 0777
+    mode: "0777"
 
 - name: Adding promtail configuration file
   ansible.builtin.template:
     src: promtail.yml
     dest: "{{ root_dir }}/promtail/config.yml"
-    mode: 0644
+    mode: "0644"
 
 - name: Create the promtail container
   community.docker.docker_container:

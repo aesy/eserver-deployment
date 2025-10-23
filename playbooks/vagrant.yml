@@ -5,14 +5,14 @@
   become: true
   roles:
   - docker
-  - host
-  - ddns
-  - vpn
-  - webserver
-  - database
-  - wiki
-  - password-manager
-  - portainer
-  - minecraft
-  - reverse-proxy
-  - yumme
+#  - host
+#  - ddns
+#  - vpn
+#  - webserver
+#  - database
+#  - wiki
+#  - password-manager
+#  - portainer
+#  - minecraft
+#  - reverse-proxy
+#  - yumme
