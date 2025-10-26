@@ -3,4 +3,10 @@
     DocumentRoot /usr/local/apache2/htdocs/{{ site.url }}
     ServerName {{ site.url }}
 </VirtualHost>
+
+<Directory "/usr/local/apache2/htdocs/{{ site.url }}">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
 {% endfor %}
