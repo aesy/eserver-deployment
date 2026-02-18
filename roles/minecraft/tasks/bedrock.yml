@@ -11,10 +11,10 @@
     dest: "{{ minecraft.bedrock.root_dir }}/data/server.properties"
     mode: "0644"
 
-- name: Adding whitelist.json file
+- name: Adding allowlist.json file
   ansible.builtin.template:
-    src: bedrock/whitelist.json.j2
-    dest: "{{ minecraft.bedrock.root_dir }}/data/whitelist.json"
+    src: bedrock/allowlist.json.j2
+    dest: "{{ minecraft.bedrock.root_dir }}/data/allowlist.json"
     mode: "0644"
 
 - name: Adding permissions.json file
