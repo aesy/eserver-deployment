@@ -1,9 +1,9 @@
 ---
 acme_email: ""
 acme_provider: ""
+acme_domain: ""
 
-namecheap_api_user: ""
-namecheap_api_key: ""
+cloudflare_dns_api_token: ""
 
 traefik_user: "traefik"
 traefik_password: "traefik"

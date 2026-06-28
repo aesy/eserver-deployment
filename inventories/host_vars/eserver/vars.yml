@@ -7,10 +7,10 @@ traefik_password: "{{ vault_traefik_password }}"
 traefik_salt: "{{ vault_traefik_salt }}"
 
 acme_email: "{{ vault_acme_email }}"
-acme_provider: namecheap
+acme_provider: cloudflare
+acme_domain: wertwein.com
 
-namecheap_api_user: "{{ vault_namecheap_username }}"
-namecheap_api_key: "{{ vault_namecheap_key }}"
+cloudflare_dns_api_token: "{{ vault_cloudflare_dns_api_token }}"
 
 postgres_enabled: true
 postgres_user: "{{ vault_postgres_username }}"
@@ -20,8 +20,12 @@ mariadb_enabled: true
 mariadb_user: "{{ vault_mariadb_username }}"
 mariadb_password: "{{ vault_mariadb_password }}"
 
-ddclient_protocol: namecheap
-ddclient_domains: "{{ vault_domains }}"
+ddclient_protocol: cloudflare
+ddclient_zone: wertwein.com
+ddclient_token: "{{ vault_cloudflare_dns_api_token }}"
+ddclient_hosts:
+  - wertwein.com
+  - "*.wertwein.com"
 
 httpd_sites: "{{ vault_webserver_sites }}"
 

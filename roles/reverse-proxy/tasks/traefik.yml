@@ -43,5 +43,4 @@
       traefik.http.middlewares.auth.basicauth.users: "{{ traefik_user }}:{{ traefik_password | password_hash(salt=traefik_salt) }}"
       traefik.enable: "true"
     env:
-      NAMECHEAP_API_USER: "{{ namecheap_api_user }}"
-      NAMECHEAP_API_KEY: "{{ namecheap_api_key }}"
+      CF_DNS_API_TOKEN: "{{ cloudflare_dns_api_token }}"

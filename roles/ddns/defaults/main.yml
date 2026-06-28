@@ -1,3 +1,5 @@
 ---
 ddclient_protocol: ""
-ddclient_domains: []
+ddclient_zone: ""
+ddclient_token: ""
+ddclient_hosts: []

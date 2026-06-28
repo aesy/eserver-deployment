@@ -1,14 +1,10 @@
 daemon=3600
 timeout=10
 syslog=yes
-use=web, web=dynamicdns.park-your-domain.com/getip
-server=dynamicdns.park-your-domain.com
-protocol={{ ddclient_protocol }}
 
-{% for domain in ddclient_domains %}
-{% if 'password' in domain %}
-login={{ domain.name }}
-password={{ domain.password }}
-@, *
-{% endif %}
-{% endfor %}
+use=web, web=https://checkip.amazonaws.com
+protocol={{ ddclient_protocol }}
+zone={{ ddclient_zone }}
+ttl=1
+password={{ ddclient_token }}
+{{ ddclient_hosts | join(',') }}

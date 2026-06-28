@@ -12,6 +12,12 @@ entryPoints:
     http:
       tls:
         certResolver: letsEncrypt
+{% if acme_domain %}
+        domains:
+          - main: "{{ acme_domain }}"
+            sans:
+              - "*.{{ acme_domain }}"
+{% endif %}
 
 api:
   dashboard: true
