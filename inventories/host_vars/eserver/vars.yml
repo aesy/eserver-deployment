@@ -29,6 +29,10 @@ ddclient_hosts:
 
 httpd_sites: "{{ vault_webserver_sites }}"
 
+scaleway_bucket: "{{ vault_scaleway_bucket }}"
+scaleway_access_key: "{{ vault_scaleway_access_key }}"
+scaleway_secret_key: "{{ vault_scaleway_secret_key }}"
+
 minecraft:
   bedrock:
     enabled: true

@@ -1,0 +1,9 @@
+{% if scaleway_access_key %}
+[{{ minecraft_backup_remote }}]
+type = s3
+provider = Scaleway
+access_key_id = {{ scaleway_access_key }}
+secret_access_key = {{ scaleway_secret_key }}
+region = {{ scaleway_region }}
+endpoint = s3.{{ scaleway_region }}.scw.cloud
+{% endif %}

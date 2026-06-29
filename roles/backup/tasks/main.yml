@@ -1,0 +1,6 @@
+---
+- name: Include rclone configuration
+  ansible.builtin.include_tasks: rclone.yml
+
+- name: Include Minecraft backup tasks
+  ansible.builtin.include_tasks: minecraft.yml

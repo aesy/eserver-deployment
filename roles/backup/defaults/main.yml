@@ -1,0 +1,21 @@
+---
+rclone_data_root: "{{ root_dir }}/rclone"
+
+# Minecraft backup (roles/backup/tasks/minecraft.yml)
+minecraft_backup_container: "minecraft_bedrock"
+minecraft_backup_data_dir: "{{ root_dir }}/minecraft/bedrock/data"
+minecraft_backup_local_dir: "/var/backups/minecraft"
+minecraft_backup_keep_weekly: 2
+minecraft_backup_keep_monthly: 2
+minecraft_backup_keep_yearly: 2
+minecraft_backup_cron:
+  weekday: 0
+  hour: 6
+  minute: 0
+minecraft_backup_remote: "Scaleway Glacier eServer"
+
+# Scaleway Object Storage (Glacier)
+scaleway_region: "nl-ams"
+scaleway_bucket: ""
+scaleway_access_key: ""
+scaleway_secret_key: ""

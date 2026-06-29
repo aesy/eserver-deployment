@@ -1,0 +1,27 @@
+---
+- name: Ensure local Minecraft backup dir exists
+  ansible.builtin.file:
+    path: "{{ minecraft_backup_local_dir }}"
+    state: directory
+    mode: "0750"
+
+- name: Ensure backup script dir exists
+  ansible.builtin.file:
+    path: "{{ root_dir }}/backup"
+    state: directory
+    mode: "0755"
+
+- name: Install Minecraft backup script
+  ansible.builtin.template:
+    src: minecraft-backup.sh.j2
+    dest: "{{ root_dir }}/backup/minecraft-backup.sh"
+    mode: "0755"
+
+- name: Schedule weekly Minecraft backup
+  ansible.builtin.cron:
+    name: Weekly Minecraft backup to local + Scaleway Glacier
+    user: root
+    weekday: "{{ minecraft_backup_cron.weekday }}"
+    hour: "{{ minecraft_backup_cron.hour }}"
+    minute: "{{ minecraft_backup_cron.minute }}"
+    job: "{{ root_dir }}/backup/minecraft-backup.sh"
